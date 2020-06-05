@@ -12,3 +12,8 @@ OptionsWindow::~OptionsWindow()
 {
     delete ui;
 }
+
+void OptionsWindow::on_btnAddCopyProfile_clicked()
+{
+    addCopyProfileWindow.exec();
+}

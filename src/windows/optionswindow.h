@@ -3,6 +3,8 @@
 
 #include <QDialog>
 
+#include "addcopyprofilewindow.h"
+
 namespace Ui {
 class OptionsWindow;
 }
@@ -15,8 +17,12 @@ public:
     explicit OptionsWindow(QWidget *parent = nullptr);
     ~OptionsWindow();
 
+private slots:
+    void on_btnAddCopyProfile_clicked();
+
 private:
     Ui::OptionsWindow *ui;
+    AddCopyProfileWindow addCopyProfileWindow;
 };
 
 #endif // OPTIONSWINDOW_H

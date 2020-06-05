@@ -100,7 +100,7 @@
      <item>
       <widget class="QPushButton" name="btnDeleteCopyProfile">
        <property name="text">
-        <string>&amp;Delete Copy Profile</string>
+        <string>D&amp;elete Copy Profile</string>
        </property>
       </widget>
      </item>

@@ -9,16 +9,20 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs depr
 SOURCES += \
     main.cpp \
     windows/aboutwindow.cpp \
+    windows/addcopyprofilewindow.cpp \
     windows/mainwindow.cpp \
     windows/optionswindow.cpp
 
 HEADERS += \
+    constants.h \
     windows/aboutwindow.h \
+    windows/addcopyprofilewindow.h \
     windows/mainwindow.h \
     windows/optionswindow.h
 
 FORMS += \
     windows/aboutwindow.ui \
+    windows/addcopyprofilewindow.ui \
     windows/mainwindow.ui \
     windows/optionswindow.ui
 
