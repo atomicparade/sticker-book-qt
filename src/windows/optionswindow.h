@@ -3,6 +3,7 @@
 
 #include <QDialog>
 
+#include "models/copyprofilelistmodel.h"
 #include "addcopyprofilewindow.h"
 
 namespace Ui {
@@ -16,6 +17,8 @@ class OptionsWindow : public QDialog
 public:
     explicit OptionsWindow(QWidget *parent = nullptr);
     ~OptionsWindow();
+
+    void setCopyProfileListModel(CopyProfileListModel *copyProfileListModel);
 
 private slots:
     void on_btnAddCopyProfile_clicked();

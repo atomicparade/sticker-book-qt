@@ -9,6 +9,7 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs depr
 SOURCES += \
     main.cpp \
     models/copyprofile.cpp \
+    models/copyprofilelistmodel.cpp \
     windows/aboutwindow.cpp \
     windows/addcopyprofilewindow.cpp \
     windows/mainwindow.cpp \
@@ -17,6 +18,7 @@ SOURCES += \
 HEADERS += \
     constants.h \
     models/copyprofile.h \
+    models/copyprofilelistmodel.h \
     windows/aboutwindow.h \
     windows/addcopyprofilewindow.h \
     windows/mainwindow.h \

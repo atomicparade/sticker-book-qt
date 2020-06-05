@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 
+#include "models/copyprofilelistmodel.h"
 #include "aboutwindow.h"
 #include "optionswindow.h"
 
@@ -31,5 +32,7 @@ private:
     Ui::MainWindow *ui;
     AboutWindow aboutWindow;
     OptionsWindow optionsWindow;
+
+    CopyProfileListModel *_copyProfileListModel;
 };
 #endif // MAINWINDOW_H

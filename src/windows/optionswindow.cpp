@@ -13,6 +13,11 @@ OptionsWindow::~OptionsWindow()
     delete ui;
 }
 
+void OptionsWindow::setCopyProfileListModel(CopyProfileListModel *copyProfileListModel)
+{
+    ui->lvCopyProfiles->setModel(copyProfileListModel);
+}
+
 void OptionsWindow::on_btnAddCopyProfile_clicked()
 {
     addCopyProfileWindow.exec();

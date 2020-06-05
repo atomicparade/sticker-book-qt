@@ -6,8 +6,13 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , _copyProfileListModel(new CopyProfileListModel(this))
 {
     ui->setupUi(this);
+
+    optionsWindow.setCopyProfileListModel(_copyProfileListModel);
+
+    _copyProfileListModel->addCopyProfile(new CopyProfile(-1, -1, false));
 }
 
 MainWindow::~MainWindow()
