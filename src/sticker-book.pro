@@ -8,12 +8,15 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs depr
 
 SOURCES += \
     main.cpp \
+    windows/aboutwindow.cpp \
     windows/mainwindow.cpp
 
 HEADERS += \
+    windows/aboutwindow.h \
     windows/mainwindow.h
 
 FORMS += \
+    windows/aboutwindow.ui \
     windows/mainwindow.ui
 
 # Default rules for deployment.

@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include "aboutwindow.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -15,7 +17,15 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+protected:
+    void closeEvent(QCloseEvent *event);
+
+private slots:
+    void on_actionAbout_triggered();
+    void on_actionExit_triggered();
+
 private:
     Ui::MainWindow *ui;
+    AboutWindow aboutWindow;
 };
 #endif // MAINWINDOW_H
