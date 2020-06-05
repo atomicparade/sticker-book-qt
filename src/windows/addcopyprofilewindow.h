@@ -19,6 +19,9 @@ public:
 protected:
     void showEvent(QShowEvent *event);
 
+private slots:
+    void eventMaxHeightOrMaxWidthChanged();
+
 private:
     Ui::AddCopyProfileWindow *ui;
     QIntValidator intValidator;
