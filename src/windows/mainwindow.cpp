@@ -29,3 +29,8 @@ void MainWindow::on_actionExit_triggered()
 {
     close();
 }
+
+void MainWindow::on_actionOptions_triggered()
+{
+    optionsWindow.exec();
+}

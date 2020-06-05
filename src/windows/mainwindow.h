@@ -4,6 +4,7 @@
 #include <QMainWindow>
 
 #include "aboutwindow.h"
+#include "optionswindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,8 +25,11 @@ private slots:
     void on_actionAbout_triggered();
     void on_actionExit_triggered();
 
+    void on_actionOptions_triggered();
+
 private:
     Ui::MainWindow *ui;
     AboutWindow aboutWindow;
+    OptionsWindow optionsWindow;
 };
 #endif // MAINWINDOW_H
