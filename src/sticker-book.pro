@@ -9,15 +9,18 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs depr
 SOURCES += \
     main.cpp \
     windows/aboutwindow.cpp \
-    windows/mainwindow.cpp
+    windows/mainwindow.cpp \
+    windows/optionswindow.cpp
 
 HEADERS += \
     windows/aboutwindow.h \
-    windows/mainwindow.h
+    windows/mainwindow.h \
+    windows/optionswindow.h
 
 FORMS += \
     windows/aboutwindow.ui \
-    windows/mainwindow.ui
+    windows/mainwindow.ui \
+    windows/optionswindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
