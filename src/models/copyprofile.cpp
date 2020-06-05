@@ -14,15 +14,15 @@ CopyProfile::CopyProfile(int width, int height, bool scaleUp, QObject *parent)
     {
         if (_width > 0 && height > 0)
         {
-            _name = "Width " + QString(_width) + "px, height " + QString(_height) + "px";
+            _name = "Width " + QString::number(_width) + "px, height " + QString::number(_height) + "px";
         }
         else if (_width > 0 && height <= 0)
         {
-            _name = "Width " + QString(_width) + "px";
+            _name = "Width " + QString::number(_width) + "px";
         }
         else if (_width <= 0 && height > 0)
         {
-            _name = "Height " + QString(_height) + "px";
+            _name = "Height " + QString::number(_height) + "px";
         }
 
         if (_scaleUp)
