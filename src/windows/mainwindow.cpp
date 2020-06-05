@@ -17,15 +17,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    aboutWindow.close();
     event->accept();
 }
 
 void MainWindow::on_actionAbout_triggered()
 {
-    aboutWindow.show();
-    aboutWindow.raise();
-    aboutWindow.activateWindow();
+    aboutWindow.exec();
 }
 
 void MainWindow::on_actionExit_triggered()
