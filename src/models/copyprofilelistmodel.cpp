@@ -36,6 +36,11 @@ int CopyProfileListModel::rowCount(const QModelIndex &parent) const
     return _copyProfiles.length();
 }
 
+CopyProfile *CopyProfileListModel::at(int index)
+{
+    return _copyProfiles.at(index);
+}
+
 void CopyProfileListModel::addCopyProfile(CopyProfile *copyProfile)
 {
     copyProfile->setParent(this);

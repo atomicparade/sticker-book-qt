@@ -33,6 +33,6 @@ private:
     AboutWindow aboutWindow;
     OptionsWindow optionsWindow;
 
-    CopyProfileListModel *_copyProfileListModel;
+    CopyProfileListModel *_copyProfiles;
 };
 #endif // MAINWINDOW_H

@@ -6,13 +6,19 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-    , _copyProfileListModel(new CopyProfileListModel(this))
+    , _copyProfiles(new CopyProfileListModel(this))
 {
     ui->setupUi(this);
 
-    optionsWindow.setCopyProfileListModel(_copyProfileListModel);
+    optionsWindow.setCopyProfiles(_copyProfiles);
 
-    _copyProfileListModel->addCopyProfile(new CopyProfile(-1, -1, false));
+    _copyProfiles->addCopyProfile(new CopyProfile(-1, -1, false));
+    _copyProfiles->addCopyProfile(new CopyProfile(100, -1, false));
+    _copyProfiles->addCopyProfile(new CopyProfile(-1, 100, false));
+    _copyProfiles->addCopyProfile(new CopyProfile(100, 100, false));
+    _copyProfiles->addCopyProfile(new CopyProfile(100, -1, true));
+    _copyProfiles->addCopyProfile(new CopyProfile(-1, 100, true));
+    _copyProfiles->addCopyProfile(new CopyProfile(100, 100, true));
 }
 
 MainWindow::~MainWindow()

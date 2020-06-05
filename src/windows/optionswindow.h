@@ -18,14 +18,20 @@ public:
     explicit OptionsWindow(QWidget *parent = nullptr);
     ~OptionsWindow();
 
-    void setCopyProfileListModel(CopyProfileListModel *copyProfileListModel);
+    void setCopyProfiles(CopyProfileListModel *copyProfiles);
+
+protected:
+    void showEvent(QShowEvent *event);
 
 private slots:
     void on_btnAddCopyProfile_clicked();
+    void recalculateCopyProfileDeleteEnabled();
 
 private:
     Ui::OptionsWindow *ui;
     AddCopyProfileWindow addCopyProfileWindow;
+
+    CopyProfileListModel *_copyProfiles = nullptr;
 };
 
 #endif // OPTIONSWINDOW_H
