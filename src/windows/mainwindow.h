@@ -5,6 +5,8 @@
 #include <QSettings>
 #include <QStringList>
 
+#include <views/stickergrid.h>
+
 #include "models/copyprofilelistmodel.h"
 #include "models/sticker.h"
 #include "aboutwindow.h"
@@ -40,6 +42,8 @@ private:
     Ui::MainWindow *ui;
     AboutWindow aboutWindow;
     OptionsWindow optionsWindow;
+
+    StickerGrid _stickerGrid;
 
     QSettings _settings;
     QStringList _directories;

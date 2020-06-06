@@ -10,6 +10,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , _stickerGrid(this)
     , _settings(QCoreApplication::organizationName(), QCoreApplication::applicationName(), this)
     , _copyProfiles(this)
 {
@@ -19,6 +20,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->cbCopyProfile->setModel(&_copyProfiles);
     optionsWindow.setCopyProfiles(&_copyProfiles);
+
+    _stickerGrid.setLayout(ui->stickerGridLayout);
 
     loadSettings();
 }
@@ -83,10 +86,7 @@ void MainWindow::loadStickers()
 
     std::sort(_stickers.begin(), _stickers.end());
 
-    for (const Sticker &s : _stickers)
-    {
-        qDebug(s.name().toLatin1());
-    }
+    _stickerGrid.loadStickers(&_stickers);
 }
 
 void MainWindow::loadSettings()

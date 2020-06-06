@@ -50,7 +50,7 @@
       <property name="widgetResizable">
        <bool>true</bool>
       </property>
-      <widget class="QWidget" name="scrollAreaWidgetContents_2">
+      <widget class="QWidget" name="scrollAreaWidgetContents">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -59,6 +59,7 @@
          <height>272</height>
         </rect>
        </property>
+       <layout class="QGridLayout" name="stickerGridLayout"/>
       </widget>
      </widget>
     </item>

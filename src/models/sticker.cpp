@@ -2,10 +2,11 @@
 
 #include "sticker.h"
 
-Sticker::Sticker(QString path) : _path(path)
+Sticker::Sticker(QString path)
+    : _path(path)
+    , _name(QFileInfo(path).fileName())
+    , _image(_path)
 {
-    const QFileInfo fileInfo(path);
-    _name = fileInfo.fileName();
 }
 
 bool Sticker::operator<(const Sticker &other) const
@@ -31,4 +32,14 @@ QString Sticker::path() const
 QString Sticker::name() const
 {
     return _name;
+}
+
+const QImage& Sticker::image() const
+{
+    return _image;
+}
+
+bool Sticker::isValid() const
+{
+    return !_image.isNull();
 }

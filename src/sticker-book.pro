@@ -22,6 +22,7 @@ SOURCES += \
     models/copyprofile.cpp \
     models/copyprofilelistmodel.cpp \
     models/sticker.cpp \
+    views/stickergrid.cpp \
     windows/aboutwindow.cpp \
     windows/addcopyprofilewindow.cpp \
     windows/mainwindow.cpp \
@@ -31,6 +32,7 @@ HEADERS += \
     models/copyprofile.h \
     models/copyprofilelistmodel.h \
     models/sticker.h \
+    views/stickergrid.h \
     windows/aboutwindow.h \
     windows/addcopyprofilewindow.h \
     windows/mainwindow.h \
