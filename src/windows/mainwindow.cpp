@@ -132,6 +132,8 @@ void MainWindow::loadSettings()
     }
 
     _settings.endArray();
+
+    restoreGeometry(_settings.value("windowGeometry").toByteArray());
 }
 
 void MainWindow::saveSettings()
@@ -160,4 +162,6 @@ void MainWindow::saveSettings()
         }
     }
     _settings.endArray();
+
+    _settings.setValue("windowGeometry", saveGeometry());
 }
