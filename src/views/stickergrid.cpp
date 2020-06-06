@@ -21,8 +21,11 @@ void StickerGrid::loadStickers(QVector<Sticker> *stickers)
     for (const Sticker &sticker : *stickers)
     {
         QPushButton *button = new QPushButton();
+        button->setFixedSize(kButtonWidth, kButtonHeight);
+        button->setIconSize(QSize(kButtonWidth, kButtonHeight));
         button->setFlat(true);
         button->setIcon(QPixmap::fromImage(sticker.image()));
+        button->setToolTip(sticker.name());
 
         _buttons.append(button);
         _layout->addWidget(button);

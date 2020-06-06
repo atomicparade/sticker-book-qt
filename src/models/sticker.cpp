@@ -4,7 +4,7 @@
 
 Sticker::Sticker(QString path)
     : _path(path)
-    , _name(QFileInfo(path).fileName())
+    , _name(QFileInfo(path).baseName().trimmed())
     , _image(_path)
 {
 }

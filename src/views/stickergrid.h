@@ -11,6 +11,9 @@ class StickerGrid : public QObject
 {
     Q_OBJECT
 public:
+    const int kButtonWidth = 64;
+    const int kButtonHeight = 64;
+
     explicit StickerGrid(QObject *parent = nullptr);
 
     void setLayout(QGridLayout *layout);
