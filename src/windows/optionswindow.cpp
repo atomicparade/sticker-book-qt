@@ -15,6 +15,8 @@ OptionsWindow::OptionsWindow(QWidget *parent) :
             this, &OptionsWindow::copyProfileDataAccepted);
 
     ui->lvDirectories->setModel(&_workingDirectoriesModel);
+    connect(ui->lvDirectories->selectionModel(), &QItemSelectionModel::selectionChanged,
+            this, &OptionsWindow::recalculateDirectoryRemoveEnabled);
 
     ui->lvCopyProfiles->setModel(&_workingCopyProfiles);
     connect(ui->lvCopyProfiles->selectionModel(), &QItemSelectionModel::selectionChanged,
@@ -42,7 +44,7 @@ void OptionsWindow::showEvent(QShowEvent *event)
     // until the user clicks Apply or OK
     _workingDirectories = *_directories;
     _workingDirectoriesModel.setStringList(_workingDirectories);
-    ui->btnRemoveDirectory->setEnabled(false);
+    recalculateDirectoryRemoveEnabled();
 
     _workingCopyProfiles.clear();
     for (int i = 0; i < _copyProfiles->rowCount(); ++i)
@@ -64,6 +66,18 @@ void OptionsWindow::on_btnAddDirectory_clicked()
         _workingDirectories.sort(Qt::CaseInsensitive);
         _workingDirectoriesModel.setStringList(_workingDirectories);
     }
+}
+
+void OptionsWindow::on_btnRemoveDirectory_clicked()
+{
+    QModelIndexList selectedIndexes = ui->lvDirectories->selectionModel()->selectedIndexes();
+
+    for (auto i = selectedIndexes.rbegin(); i != selectedIndexes.rend(); ++i)
+    {
+        _workingDirectories.removeAt((*i).row());
+    }
+
+    _workingDirectoriesModel.setStringList(_workingDirectories);
 }
 
 void OptionsWindow::on_btnAddCopyProfile_clicked()
@@ -101,6 +115,14 @@ void OptionsWindow::on_buttonBox_clicked(QAbstractButton *button)
 void OptionsWindow::copyProfileDataAccepted(int width, int height, bool scaleUp)
 {
     _workingCopyProfiles.addCopyProfile(CopyProfile(width, height, scaleUp));
+}
+
+void OptionsWindow::recalculateDirectoryRemoveEnabled()
+{
+    QModelIndexList selectedIndexes = ui->lvDirectories->selectionModel()->selectedIndexes();
+
+    // Only enable the button if at least one directory is selected
+    ui->btnRemoveDirectory->setEnabled(selectedIndexes.size() > 0);
 }
 
 void OptionsWindow::recalculateCopyProfileDeleteEnabled()

@@ -28,10 +28,12 @@ protected:
 
 private slots:
     void on_btnAddDirectory_clicked();
+    void on_btnRemoveDirectory_clicked();
     void on_btnAddCopyProfile_clicked();
     void on_btnDeleteCopyProfile_clicked();
     void on_buttonBox_clicked(QAbstractButton *button);
     void copyProfileDataAccepted(int width, int height, bool scaleUp);
+    void recalculateDirectoryRemoveEnabled();
     void recalculateCopyProfileDeleteEnabled();
 
 private:
