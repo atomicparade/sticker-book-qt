@@ -14,6 +14,7 @@ OptionsWindow::OptionsWindow(QWidget *parent) :
     connect(&addCopyProfileWindow, &AddCopyProfileWindow::copyProfileDataAccepted,
             this, &OptionsWindow::copyProfileDataAccepted);
 
+    ui->lvDirectories->setEditTriggers(QAbstractItemView::NoEditTriggers); // Disable editing
     ui->lvDirectories->setModel(&_workingDirectoriesModel);
     connect(ui->lvDirectories->selectionModel(), &QItemSelectionModel::selectionChanged,
             this, &OptionsWindow::recalculateDirectoryRemoveEnabled);
