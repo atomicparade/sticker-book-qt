@@ -12,6 +12,10 @@ OptionsWindow::OptionsWindow(QWidget *parent) :
 
     connect(&addCopyProfileWindow, &AddCopyProfileWindow::copyProfileDataAccepted,
             this, &OptionsWindow::copyProfileDataAccepted);
+
+    ui->lvCopyProfiles->setModel(&_workingCopyProfiles);
+    connect(ui->lvCopyProfiles->selectionModel(), &QItemSelectionModel::selectionChanged,
+            this, &OptionsWindow::recalculateCopyProfileDeleteEnabled);
 }
 
 OptionsWindow::~OptionsWindow()
@@ -23,6 +27,13 @@ void OptionsWindow::showEvent(QShowEvent *event)
 {
     ui->btnRemoveDirectory->setEnabled(false);
 
+    _workingCopyProfiles.clear();
+
+    for (int i = 0; i < _copyProfiles->rowCount(); ++i)
+    {
+        _workingCopyProfiles.addCopyProfile(_copyProfiles->at(i));
+    }
+
     recalculateCopyProfileDeleteEnabled();
 
     event->accept();
@@ -31,10 +42,6 @@ void OptionsWindow::showEvent(QShowEvent *event)
 void OptionsWindow::setCopyProfiles(CopyProfileListModel *copyProfiles)
 {
     _copyProfiles = copyProfiles;
-    ui->lvCopyProfiles->setModel(copyProfiles);
-
-    connect(ui->lvCopyProfiles->selectionModel(), &QItemSelectionModel::selectionChanged,
-            this, &OptionsWindow::recalculateCopyProfileDeleteEnabled);
 }
 
 void OptionsWindow::on_btnAddCopyProfile_clicked()
@@ -50,15 +57,28 @@ void OptionsWindow::on_btnDeleteCopyProfile_clicked()
     {
         QModelIndex selectedIndex = selectedIndexes.first();
 
-        CopyProfile selectedCopyProfile = _copyProfiles->at(selectedIndex.row());
+        CopyProfile selectedCopyProfile = _workingCopyProfiles.at(selectedIndex.row());
 
-        _copyProfiles->removeCopyProfile(selectedCopyProfile);
+        _workingCopyProfiles.removeCopyProfile(selectedCopyProfile);
+    }
+}
+
+void OptionsWindow::on_buttonBox_clicked(QAbstractButton *button)
+{
+    switch (ui->buttonBox->buttonRole(button))
+    {
+    case QDialogButtonBox::ApplyRole:
+    case QDialogButtonBox::AcceptRole:
+        saveChanges();
+        break;
+    default:
+        break;
     }
 }
 
 void OptionsWindow::copyProfileDataAccepted(int width, int height, bool scaleUp)
 {
-    _copyProfiles->addCopyProfile(CopyProfile(width, height, scaleUp));
+    _workingCopyProfiles.addCopyProfile(CopyProfile(width, height, scaleUp));
 }
 
 void OptionsWindow::recalculateCopyProfileDeleteEnabled()
@@ -80,3 +100,14 @@ void OptionsWindow::recalculateCopyProfileDeleteEnabled()
 
     ui->btnDeleteCopyProfile->setEnabled(enableButton);
 }
+
+void OptionsWindow::saveChanges()
+{
+    _copyProfiles->clear();
+
+    for (int i = 0; i < _workingCopyProfiles.rowCount(); i++)
+    {
+        _copyProfiles->addCopyProfile(_workingCopyProfiles.at(i));
+    }
+}
+

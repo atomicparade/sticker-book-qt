@@ -15,6 +15,7 @@ public:
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 
     CopyProfile at(int index);
+    void clear();
     void addCopyProfile(CopyProfile copyProfile);
     void removeCopyProfile(CopyProfile copyProfile);
 

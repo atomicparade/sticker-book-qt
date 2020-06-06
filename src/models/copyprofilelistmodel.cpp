@@ -41,6 +41,13 @@ CopyProfile CopyProfileListModel::at(int index)
     return _copyProfiles.at(index);
 }
 
+void CopyProfileListModel::clear()
+{
+    beginRemoveRows(QModelIndex(), 0, _copyProfiles.length() - 1);
+    _copyProfiles.clear();
+    endRemoveRows();
+}
+
 void CopyProfileListModel::addCopyProfile(CopyProfile copyProfile)
 {
     if (_copyProfiles.indexOf(copyProfile) < 0)
