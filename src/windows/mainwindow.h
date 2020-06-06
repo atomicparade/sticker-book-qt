@@ -1,4 +1,4 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QMainWindow>
@@ -6,6 +6,7 @@
 #include <QStringList>
 
 #include "models/copyprofilelistmodel.h"
+#include "models/sticker.h"
 #include "aboutwindow.h"
 #include "optionswindow.h"
 
@@ -22,7 +23,8 @@ public:
     ~MainWindow();
 
 protected:
-    void closeEvent(QCloseEvent *event);
+    void closeEvent(QCloseEvent *event) override;
+    void showEvent(QShowEvent *event) override;
 
 private slots:
     void on_actionAbout_triggered();
@@ -30,6 +32,7 @@ private slots:
     void on_actionOptions_triggered();
 
 private:
+    void loadStickers();
     void loadSettings();
     void saveSettings();
 
@@ -41,5 +44,6 @@ private:
     QSettings _settings;
     QStringList _directories;
     CopyProfileListModel _copyProfiles;
+    QVector<Sticker> _stickers;
 };
 #endif // MAINWINDOW_H

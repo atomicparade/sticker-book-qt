@@ -21,6 +21,7 @@ SOURCES += \
     main.cpp \
     models/copyprofile.cpp \
     models/copyprofilelistmodel.cpp \
+    models/sticker.cpp \
     windows/aboutwindow.cpp \
     windows/addcopyprofilewindow.cpp \
     windows/mainwindow.cpp \
@@ -30,6 +31,7 @@ HEADERS += \
     constants.h \
     models/copyprofile.h \
     models/copyprofilelistmodel.h \
+    models/sticker.h \
     windows/aboutwindow.h \
     windows/addcopyprofilewindow.h \
     windows/mainwindow.h \

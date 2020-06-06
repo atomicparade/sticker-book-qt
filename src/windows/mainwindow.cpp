@@ -1,5 +1,6 @@
 #include <QCloseEvent>
 #include <QDir>
+#include <QDirIterator>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -31,6 +32,12 @@ void MainWindow::closeEvent(QCloseEvent *event)
     event->accept();
 }
 
+void MainWindow::showEvent(QShowEvent *event)
+{
+    event->accept();
+    loadStickers();
+}
+
 void MainWindow::on_actionAbout_triggered()
 {
     aboutWindow.exec();
@@ -44,6 +51,33 @@ void MainWindow::on_actionExit_triggered()
 void MainWindow::on_actionOptions_triggered()
 {
     optionsWindow.exec();
+}
+
+void MainWindow::loadStickers()
+{
+    _stickers.clear();
+
+    QStringList extensions{
+        "*.bmp",
+        "*.gif",
+        "*.jpg",
+        "*.jpeg",
+        "*.png"
+    };
+
+    for (QString directory : _directories)
+    {
+        QDirIterator it(directory,
+                        extensions,
+                        QDir::Files,
+                        QDirIterator::Subdirectories | QDirIterator::FollowSymlinks
+        );
+
+        while (it.hasNext())
+        {
+            _stickers.append(Sticker(it.next()));
+        }
+    }
 }
 
 void MainWindow::loadSettings()
