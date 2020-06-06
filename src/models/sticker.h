@@ -9,6 +9,10 @@ public:
     Sticker() = default;
     Sticker(QString path);
 
+    bool operator<(const Sticker &other) const;
+    bool operator>(const Sticker &other) const;
+    bool operator==(const Sticker &other) const;
+
     QString path() const;
     QString name() const;
 

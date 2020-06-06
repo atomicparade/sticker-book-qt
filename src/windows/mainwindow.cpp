@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include <QCloseEvent>
 #include <QDir>
 #include <QDirIterator>
@@ -77,6 +79,13 @@ void MainWindow::loadStickers()
         {
             _stickers.append(Sticker(it.next()));
         }
+    }
+
+    std::sort(_stickers.begin(), _stickers.end());
+
+    for (const Sticker &s : _stickers)
+    {
+        qDebug(s.name().toLatin1());
     }
 }
 
