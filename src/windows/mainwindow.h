@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QSettings>
 #include <QStringList>
 
 #include "models/copyprofilelistmodel.h"
@@ -26,14 +27,18 @@ protected:
 private slots:
     void on_actionAbout_triggered();
     void on_actionExit_triggered();
-
     void on_actionOptions_triggered();
+
+private:
+    void loadSettings();
+    void saveSettings();
 
 private:
     Ui::MainWindow *ui;
     AboutWindow aboutWindow;
     OptionsWindow optionsWindow;
 
+    QSettings _settings;
     QStringList _directories;
     CopyProfileListModel _copyProfiles;
 };

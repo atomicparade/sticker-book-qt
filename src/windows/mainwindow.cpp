@@ -1,4 +1,5 @@
 #include <QCloseEvent>
+#include <QDir>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -6,6 +7,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , _settings(QCoreApplication::organizationName(), QCoreApplication::applicationName(), this)
     , _copyProfiles(this)
 {
     ui->setupUi(this);
@@ -22,6 +24,8 @@ MainWindow::MainWindow(QWidget *parent)
     _copyProfiles.addCopyProfile(CopyProfile(100, -1, true));
     _copyProfiles.addCopyProfile(CopyProfile(-1, 100, true));
     _copyProfiles.addCopyProfile(CopyProfile(100, 100, true));
+
+    loadSettings();
 }
 
 MainWindow::~MainWindow()
@@ -31,6 +35,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
+    saveSettings();
     event->accept();
 }
 
@@ -47,4 +52,41 @@ void MainWindow::on_actionExit_triggered()
 void MainWindow::on_actionOptions_triggered()
 {
     optionsWindow.exec();
+}
+
+void MainWindow::loadSettings()
+{
+    const int numDirectories = _settings.beginReadArray("directories");
+    int numDirectoriesAdded = 0;
+
+    for (int i = 0; i < numDirectories; ++i)
+    {
+        _settings.setArrayIndex(i);
+        const QString directory = _settings.value("directory").toString().trimmed();
+
+        if (!directory.isEmpty() && !_directories.contains(directory, Qt::CaseInsensitive))
+        {
+            _directories.append(directory);
+            ++numDirectoriesAdded;
+        }
+    }
+
+    _settings.endArray();
+}
+
+void MainWindow::saveSettings()
+{
+    _settings.beginWriteArray("directories");
+    for (int i = 0; i < _directories.size(); ++i)
+    {
+        _settings.setArrayIndex(i);
+        _settings.setValue("directory", _directories.at(i));
+    }
+    _settings.endArray();
+
+    _settings.beginWriteArray("copyProfiles");
+    for (int i = 0; i < _copyProfiles.rowCount(); ++i)
+    {
+
+    }
 }

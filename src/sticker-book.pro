@@ -6,6 +6,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+VERSION = 1.0.0
+QMAKE_TARGET_COMPANY = Atomic Parade
+QMAKE_TARGET_PRODUCT = "Sticker Book"
+QMAKE_TARGET_COPYRIGHT = "\u2669 Atomic Parade 2020"
+
+DEFINES += \
+    ORGANIZATION_NAME="\"\\\"$$QMAKE_TARGET_COMPANY\\\"\"" \
+    PRODUCT_NAME="\"\\\"$$QMAKE_TARGET_PRODUCT\\\"\"" \
+    VERSION_STRING="\"\\\"$$VERSION\\\"\"" \
+    COPYRIGHT_STRING="\"\\\"$$QMAKE_TARGET_COPYRIGHT\\\"\""
+
 SOURCES += \
     main.cpp \
     models/copyprofile.cpp \
