@@ -19,7 +19,7 @@ public:
     void removeCopyProfile(CopyProfile *copyProfile);
 
 private:
-    QList<CopyProfile *> _copyProfiles;
+    QVector<CopyProfile *> _copyProfiles;
 };
 
 #endif // COPYPROFILELISTMODEL_H
