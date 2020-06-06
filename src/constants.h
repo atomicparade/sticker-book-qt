@@ -1,7 +1,0 @@
-#ifndef CONSTANTS_H
-#define CONSTANTS_H
-
-const int COPY_PROFILE_MIN_VALUE = 1;
-const int COPY_PROFILE_MAX_VALUE = 9999;
-
-#endif // CONSTANTS_H

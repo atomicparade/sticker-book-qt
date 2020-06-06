@@ -28,7 +28,6 @@ SOURCES += \
     windows/optionswindow.cpp
 
 HEADERS += \
-    constants.h \
     models/copyprofile.h \
     models/copyprofilelistmodel.h \
     models/sticker.h \

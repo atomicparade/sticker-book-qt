@@ -13,6 +13,9 @@ class AddCopyProfileWindow : public QDialog
     Q_OBJECT
 
 public:
+    const int kCopyProfileMinDim = 1;
+    const int kCopyProfileMaxDim = 9999;
+
     explicit AddCopyProfileWindow(QWidget *parent = nullptr);
     ~AddCopyProfileWindow();
 

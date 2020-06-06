@@ -2,7 +2,6 @@
 #include <QShowEvent>
 
 #include "addcopyprofilewindow.h"
-#include "constants.h"
 #include "ui_addcopyprofilewindow.h"
 
 AddCopyProfileWindow::AddCopyProfileWindow(QWidget *parent) :
@@ -10,7 +9,7 @@ AddCopyProfileWindow::AddCopyProfileWindow(QWidget *parent) :
     ui(new Ui::AddCopyProfileWindow)
 {
     ui->setupUi(this);
-    intValidator.setRange(COPY_PROFILE_MIN_VALUE, COPY_PROFILE_MAX_VALUE);
+    intValidator.setRange(AddCopyProfileWindow::kCopyProfileMinDim, AddCopyProfileWindow::kCopyProfileMaxDim);
     ui->leWidth->setValidator(&intValidator);
     ui->leHeight->setValidator(&intValidator);
 
