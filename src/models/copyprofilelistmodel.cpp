@@ -29,6 +29,17 @@ QVariant CopyProfileListModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
+bool CopyProfileListModel::removeRows(int row, int count, const QModelIndex &parent)
+{
+    Q_UNUSED(parent);
+
+    beginRemoveRows(QModelIndex(), row, row + count);
+    _copyProfiles.remove(row, count);
+    endRemoveRows();
+
+    return true;
+}
+
 int CopyProfileListModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
@@ -43,9 +54,7 @@ CopyProfile CopyProfileListModel::at(int index)
 
 void CopyProfileListModel::clear()
 {
-    beginRemoveRows(QModelIndex(), 0, _copyProfiles.length() - 1);
-    _copyProfiles.clear();
-    endRemoveRows();
+    removeRows(0, _copyProfiles.size());
 }
 
 void CopyProfileListModel::addCopyProfile(CopyProfile copyProfile)
@@ -55,19 +64,5 @@ void CopyProfileListModel::addCopyProfile(CopyProfile copyProfile)
         beginInsertRows(QModelIndex(), _copyProfiles.size(), _copyProfiles.size());
         _copyProfiles.append(copyProfile);
         endInsertRows();
-    }
-}
-
-void CopyProfileListModel::removeCopyProfile(CopyProfile copyProfile)
-{
-    int idx = _copyProfiles.indexOf(copyProfile);
-
-    while (idx >= 0)
-    {
-        beginRemoveRows(QModelIndex(), idx, idx);
-        _copyProfiles.removeAt(idx);
-        endRemoveRows();
-
-        idx = _copyProfiles.indexOf(copyProfile);
     }
 }

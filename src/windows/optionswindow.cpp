@@ -90,13 +90,12 @@ void OptionsWindow::on_btnDeleteCopyProfile_clicked()
 {
     QModelIndexList selectedIndexes = ui->lvCopyProfiles->selectionModel()->selectedIndexes();
 
-    if (selectedIndexes.size() > 0)
+    for (auto i = selectedIndexes.rbegin(); i != selectedIndexes.rend(); ++i)
     {
-        QModelIndex selectedIndex = selectedIndexes.first();
-
-        CopyProfile selectedCopyProfile = _workingCopyProfiles.at(selectedIndex.row());
-
-        _workingCopyProfiles.removeCopyProfile(selectedCopyProfile);
+        if ((*i).data() != "Actual Size")
+        {
+            _workingCopyProfiles.removeRow((*i).row());
+        }
     }
 }
 
