@@ -42,6 +42,20 @@ void OptionsWindow::on_btnAddCopyProfile_clicked()
     addCopyProfileWindow.exec();
 }
 
+void OptionsWindow::on_btnDeleteCopyProfile_clicked()
+{
+    QModelIndexList selectedIndexes = ui->lvCopyProfiles->selectionModel()->selectedIndexes();
+
+    if (selectedIndexes.size() > 0)
+    {
+        QModelIndex selectedIndex = selectedIndexes.first();
+
+        CopyProfile selectedCopyProfile = _copyProfiles->at(selectedIndex.row());
+
+        _copyProfiles->removeCopyProfile(selectedCopyProfile);
+    }
+}
+
 void OptionsWindow::copyProfileDataAccepted(int width, int height, bool scaleUp)
 {
     _copyProfiles->addCopyProfile(CopyProfile(width, height, scaleUp));

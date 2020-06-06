@@ -53,5 +53,14 @@ void CopyProfileListModel::addCopyProfile(CopyProfile copyProfile)
 
 void CopyProfileListModel::removeCopyProfile(CopyProfile copyProfile)
 {
-    _copyProfiles.removeAll(copyProfile);
+    int idx = _copyProfiles.indexOf(copyProfile);
+
+    while (idx >= 0)
+    {
+        beginRemoveRows(QModelIndex(), idx, idx);
+        _copyProfiles.removeAt(idx);
+        endRemoveRows();
+
+        idx = _copyProfiles.indexOf(copyProfile);
+    }
 }
