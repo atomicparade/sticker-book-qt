@@ -25,6 +25,7 @@ protected:
 
 private slots:
     void on_btnAddCopyProfile_clicked();
+    void copyProfileDataAccepted(int width, int height, bool scaleUp);
     void recalculateCopyProfileDeleteEnabled();
 
 private:

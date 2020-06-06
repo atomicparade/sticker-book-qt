@@ -41,3 +41,18 @@ void AddCopyProfileWindow::eventMaxHeightOrMaxWidthChanged()
 
     ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled((width > 0) || (height > 0));
 }
+
+void AddCopyProfileWindow::on_buttonBox_accepted()
+{
+    const int width = ui->leWidth->text().toInt();
+    const int height = ui->leHeight->text().toInt();
+
+    if (width <= 0 && height <= 0)
+    {
+        return;
+    }
+
+    const bool scaleUp = ui->cbScaleUp->checkState() == Qt::Checked;
+
+    emit copyProfileDataAccepted(width, height, scaleUp);
+}

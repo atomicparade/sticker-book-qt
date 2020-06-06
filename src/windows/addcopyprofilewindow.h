@@ -16,11 +16,16 @@ public:
     explicit AddCopyProfileWindow(QWidget *parent = nullptr);
     ~AddCopyProfileWindow();
 
+signals:
+    void copyProfileDataAccepted(int width, int height, bool scaleUp);
+
 protected:
     void showEvent(QShowEvent *event);
 
 private slots:
     void eventMaxHeightOrMaxWidthChanged();
+
+    void on_buttonBox_accepted();
 
 private:
     Ui::AddCopyProfileWindow *ui;

@@ -8,7 +8,7 @@ CopyProfileListModel::CopyProfileListModel(QObject *parent) : QAbstractListModel
 
 QVariant CopyProfileListModel::data(const QModelIndex &index, int role) const
 {
-    if (index.row() < 0 || index.row() >= _copyProfiles.length())
+    if (index.row() < 0 || index.row() >= _copyProfiles.size())
     {
         return QVariant();
     }
@@ -33,7 +33,7 @@ int CopyProfileListModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
 
-    return _copyProfiles.length();
+    return _copyProfiles.size();
 }
 
 CopyProfile CopyProfileListModel::at(int index)
@@ -43,7 +43,12 @@ CopyProfile CopyProfileListModel::at(int index)
 
 void CopyProfileListModel::addCopyProfile(CopyProfile copyProfile)
 {
-    _copyProfiles.append(copyProfile);
+    if (_copyProfiles.indexOf(copyProfile) < 0)
+    {
+        beginInsertRows(QModelIndex(), _copyProfiles.size(), _copyProfiles.size());
+        _copyProfiles.append(copyProfile);
+        endInsertRows();
+    }
 }
 
 void CopyProfileListModel::removeCopyProfile(CopyProfile copyProfile)

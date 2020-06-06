@@ -9,6 +9,9 @@ OptionsWindow::OptionsWindow(QWidget *parent) :
     ui(new Ui::OptionsWindow)
 {
     ui->setupUi(this);
+
+    connect(&addCopyProfileWindow, &AddCopyProfileWindow::copyProfileDataAccepted,
+            this, &OptionsWindow::copyProfileDataAccepted);
 }
 
 OptionsWindow::~OptionsWindow()
@@ -39,6 +42,11 @@ void OptionsWindow::on_btnAddCopyProfile_clicked()
     addCopyProfileWindow.exec();
 }
 
+void OptionsWindow::copyProfileDataAccepted(int width, int height, bool scaleUp)
+{
+    _copyProfiles->addCopyProfile(CopyProfile(width, height, scaleUp));
+}
+
 void OptionsWindow::recalculateCopyProfileDeleteEnabled()
 {
     bool enableButton = false;
@@ -46,7 +54,7 @@ void OptionsWindow::recalculateCopyProfileDeleteEnabled()
     QModelIndexList selectedIndexes = ui->lvCopyProfiles->selectionModel()->selectedIndexes();
 
     // Only enable the button if at least one copy profile other than "Actual Size" is enabled
-    if (selectedIndexes.length() > 0)
+    if (selectedIndexes.size() > 0)
     {
         QModelIndex selectedIndex = selectedIndexes.first();
 
