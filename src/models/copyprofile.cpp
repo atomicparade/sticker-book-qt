@@ -1,8 +1,7 @@
 #include "copyprofile.h"
 
-CopyProfile::CopyProfile(int width, int height, bool scaleUp, QObject *parent)
-    : QObject(parent)
-    , _width(width)
+CopyProfile::CopyProfile(int width, int height, bool scaleUp)
+    : _width(width)
     , _height(height)
     , _scaleUp(scaleUp)
 {
@@ -36,22 +35,29 @@ CopyProfile::CopyProfile(int width, int height, bool scaleUp, QObject *parent)
     }
 }
 
-int CopyProfile::width()
+bool CopyProfile::operator==(const CopyProfile &other) const
+{
+    // Compare by name instead of width/height/scaleUp
+    // This takes care of Actual Size
+    return _name == other._name;
+}
+
+int CopyProfile::width() const
 {
     return _width;
 }
 
-int CopyProfile::height()
+int CopyProfile::height() const
 {
     return _height;
 }
 
-bool CopyProfile::scaleUp()
+bool CopyProfile::scaleUp() const
 {
     return _scaleUp;
 }
 
-QString CopyProfile::name()
+QString CopyProfile::name() const
 {
     return _name;
 }

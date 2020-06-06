@@ -1,17 +1,18 @@
 #ifndef COPYPROFILE_H
 #define COPYPROFILE_H
 
-#include <QObject>
+#include <QString>
 
-class CopyProfile : public QObject
+class CopyProfile
 {
-    Q_OBJECT
 public:
-    explicit CopyProfile(int width, int height, bool scaleUp, QObject *parent = nullptr);
-    int width();
-    int height();
-    bool scaleUp();
-    QString name();
+    CopyProfile() = default;
+    CopyProfile(int width, int height, bool scaleUp);
+    bool operator==(const CopyProfile &other) const;
+    int width() const;
+    int height() const;
+    bool scaleUp() const;
+    QString name() const;
 
 private:
     int _width;

@@ -22,7 +22,7 @@ QVariant CopyProfileListModel::data(const QModelIndex &index, int role) const
     case Qt::WhatsThisRole:
     case Qt::AccessibleTextRole:
     case Qt::AccessibleDescriptionRole:
-        return _copyProfiles.at(index.row())->name();
+        return _copyProfiles.at(index.row()).name();
         break;
     }
 
@@ -36,19 +36,17 @@ int CopyProfileListModel::rowCount(const QModelIndex &parent) const
     return _copyProfiles.length();
 }
 
-CopyProfile *CopyProfileListModel::at(int index)
+CopyProfile CopyProfileListModel::at(int index)
 {
     return _copyProfiles.at(index);
 }
 
-void CopyProfileListModel::addCopyProfile(CopyProfile *copyProfile)
+void CopyProfileListModel::addCopyProfile(CopyProfile copyProfile)
 {
-    copyProfile->setParent(this);
     _copyProfiles.append(copyProfile);
 }
 
-void CopyProfileListModel::removeCopyProfile(CopyProfile *copyProfile)
+void CopyProfileListModel::removeCopyProfile(CopyProfile copyProfile)
 {
     _copyProfiles.removeAll(copyProfile);
-    copyProfile->deleteLater();
 }

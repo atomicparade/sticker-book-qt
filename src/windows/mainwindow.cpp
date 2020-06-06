@@ -12,13 +12,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     optionsWindow.setCopyProfiles(_copyProfiles);
 
-    _copyProfiles->addCopyProfile(new CopyProfile(-1, -1, false));
-    _copyProfiles->addCopyProfile(new CopyProfile(100, -1, false));
-    _copyProfiles->addCopyProfile(new CopyProfile(-1, 100, false));
-    _copyProfiles->addCopyProfile(new CopyProfile(100, 100, false));
-    _copyProfiles->addCopyProfile(new CopyProfile(100, -1, true));
-    _copyProfiles->addCopyProfile(new CopyProfile(-1, 100, true));
-    _copyProfiles->addCopyProfile(new CopyProfile(100, 100, true));
+    _copyProfiles->addCopyProfile(CopyProfile(-1, -1, false));
+    _copyProfiles->addCopyProfile(CopyProfile(100, -1, false));
+    _copyProfiles->addCopyProfile(CopyProfile(-1, 100, false));
+    _copyProfiles->addCopyProfile(CopyProfile(100, 100, false));
+    _copyProfiles->addCopyProfile(CopyProfile(100, -1, true));
+    _copyProfiles->addCopyProfile(CopyProfile(-1, 100, true));
+    _copyProfiles->addCopyProfile(CopyProfile(100, 100, true));
 }
 
 MainWindow::~MainWindow()
