@@ -17,14 +17,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->cbCopyProfile->setModel(&_copyProfiles);
     optionsWindow.setCopyProfiles(&_copyProfiles);
 
-    _copyProfiles.addCopyProfile(CopyProfile(-1, -1, false));
-    _copyProfiles.addCopyProfile(CopyProfile(100, -1, false));
-    _copyProfiles.addCopyProfile(CopyProfile(-1, 100, false));
-    _copyProfiles.addCopyProfile(CopyProfile(100, 100, false));
-    _copyProfiles.addCopyProfile(CopyProfile(100, -1, true));
-    _copyProfiles.addCopyProfile(CopyProfile(-1, 100, true));
-    _copyProfiles.addCopyProfile(CopyProfile(100, 100, true));
-
     loadSettings();
 }
 
@@ -56,8 +48,9 @@ void MainWindow::on_actionOptions_triggered()
 
 void MainWindow::loadSettings()
 {
+    _directories.clear();
+
     const int numDirectories = _settings.beginReadArray("directories");
-    int numDirectoriesAdded = 0;
 
     for (int i = 0; i < numDirectories; ++i)
     {
@@ -67,7 +60,31 @@ void MainWindow::loadSettings()
         if (!directory.isEmpty() && !_directories.contains(directory, Qt::CaseInsensitive))
         {
             _directories.append(directory);
-            ++numDirectoriesAdded;
+        }
+    }
+
+    _settings.endArray();
+
+    _copyProfiles.clear();
+    _copyProfiles.addCopyProfile(CopyProfile(-1, -1, false)); // Add Actual Size copy profile
+
+    const int numCopyProfiles = _settings.beginReadArray("copyProfiles");
+
+    for (int i = 0; i < numCopyProfiles; ++i)
+    {
+        _settings.setArrayIndex(i);
+        const QVariant maybeWidth = _settings.value("width");
+        const QVariant maybeHeight = _settings.value("height");
+        const QVariant maybeScaleUp = _settings.value("scaleUp");
+
+        if (maybeWidth.isValid() && maybeHeight.isValid() && maybeScaleUp.isValid())
+        {
+            CopyProfile copyProfile(maybeWidth.toInt(), maybeHeight.toInt(), maybeScaleUp.toBool());
+
+            if (copyProfile.name() != "Actual Size")
+            {
+                _copyProfiles.addCopyProfile(copyProfile);
+            }
         }
     }
 
@@ -85,8 +102,19 @@ void MainWindow::saveSettings()
     _settings.endArray();
 
     _settings.beginWriteArray("copyProfiles");
+    int nextIndex = 0;
     for (int i = 0; i < _copyProfiles.rowCount(); ++i)
     {
+        CopyProfile copyProfile = _copyProfiles.at(i);
 
+        if (copyProfile.name() != "Actual Size")
+        {
+            _settings.setArrayIndex(nextIndex);
+            _settings.setValue("width", copyProfile.width());
+            _settings.setValue("height", copyProfile.height());
+            _settings.setValue("scaleUp", copyProfile.scaleUp());
+            ++nextIndex;
+        }
     }
+    _settings.endArray();
 }
