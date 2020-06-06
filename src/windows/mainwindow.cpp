@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    ui->cbCopyProfile->setModel(&_copyProfiles);
     optionsWindow.setCopyProfiles(&_copyProfiles);
 
     _copyProfiles.addCopyProfile(CopyProfile(-1, -1, false));
