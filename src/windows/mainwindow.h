@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QStringList>
 
 #include "models/copyprofilelistmodel.h"
 #include "aboutwindow.h"
@@ -33,6 +34,7 @@ private:
     AboutWindow aboutWindow;
     OptionsWindow optionsWindow;
 
+    QStringList _directories;
     CopyProfileListModel _copyProfiles;
 };
 #endif // MAINWINDOW_H

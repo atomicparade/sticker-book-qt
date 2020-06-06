@@ -1,3 +1,4 @@
+#include <QFileDialog>
 #include <QItemSelectionModel>
 #include <QShowEvent>
 
@@ -13,6 +14,8 @@ OptionsWindow::OptionsWindow(QWidget *parent) :
     connect(&addCopyProfileWindow, &AddCopyProfileWindow::copyProfileDataAccepted,
             this, &OptionsWindow::copyProfileDataAccepted);
 
+    ui->lvDirectories->setModel(&_workingDirectoriesModel);
+
     ui->lvCopyProfiles->setModel(&_workingCopyProfiles);
     connect(ui->lvCopyProfiles->selectionModel(), &QItemSelectionModel::selectionChanged,
             this, &OptionsWindow::recalculateCopyProfileDeleteEnabled);
@@ -23,25 +26,44 @@ OptionsWindow::~OptionsWindow()
     delete ui;
 }
 
-void OptionsWindow::showEvent(QShowEvent *event)
+void OptionsWindow::setDirectories(QStringList *directories)
 {
-    ui->btnRemoveDirectory->setEnabled(false);
-
-    _workingCopyProfiles.clear();
-
-    for (int i = 0; i < _copyProfiles->rowCount(); ++i)
-    {
-        _workingCopyProfiles.addCopyProfile(_copyProfiles->at(i));
-    }
-
-    recalculateCopyProfileDeleteEnabled();
-
-    event->accept();
+    _directories = directories;
 }
 
 void OptionsWindow::setCopyProfiles(CopyProfileListModel *copyProfiles)
 {
     _copyProfiles = copyProfiles;
+}
+
+void OptionsWindow::showEvent(QShowEvent *event)
+{
+    // Create copies of the current settings and work only on those copies
+    // until the user clicks Apply or OK
+    _workingDirectories = *_directories;
+    _workingDirectoriesModel.setStringList(_workingDirectories);
+    ui->btnRemoveDirectory->setEnabled(false);
+
+    _workingCopyProfiles.clear();
+    for (int i = 0; i < _copyProfiles->rowCount(); ++i)
+    {
+        _workingCopyProfiles.addCopyProfile(_copyProfiles->at(i));
+    }
+    recalculateCopyProfileDeleteEnabled();
+
+    event->accept();
+}
+
+void OptionsWindow::on_btnAddDirectory_clicked()
+{
+    QString directory = QFileDialog::getExistingDirectory();
+
+    directory = directory.trimmed();
+    if (!directory.isEmpty() && !_workingDirectories.contains(directory)) {
+        _workingDirectories.append(directory);
+        _workingDirectories.sort(Qt::CaseInsensitive);
+        _workingDirectoriesModel.setStringList(_workingDirectories);
+    }
 }
 
 void OptionsWindow::on_btnAddCopyProfile_clicked()
@@ -103,11 +125,33 @@ void OptionsWindow::recalculateCopyProfileDeleteEnabled()
 
 void OptionsWindow::saveChanges()
 {
-    _copyProfiles->clear();
+    // Only update _directories if _workingDirectories is different from before
+    bool updateDirectories = false;
 
-    for (int i = 0; i < _workingCopyProfiles.rowCount(); i++)
+    if (_directories->size() != _workingDirectories.size())
+    {
+        updateDirectories = true;
+    }
+    else
+    {
+        for (int i = 0; i < _workingDirectories.size(); ++i)
+        {
+            if (_workingDirectories.at(i) != _directories->at(i))
+            {
+                updateDirectories = true;
+                break;
+            }
+        }
+    }
+
+    if (updateDirectories)
+    {
+        *_directories = _workingDirectories;
+    }
+
+    _copyProfiles->clear();
+    for (int i = 0; i < _workingCopyProfiles.rowCount(); ++i)
     {
         _copyProfiles->addCopyProfile(_workingCopyProfiles.at(i));
     }
 }
-

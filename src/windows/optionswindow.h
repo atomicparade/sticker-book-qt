@@ -3,6 +3,7 @@
 
 #include <QAbstractButton>
 #include <QDialog>
+#include <QStringListModel>
 
 #include "models/copyprofilelistmodel.h"
 #include "addcopyprofilewindow.h"
@@ -19,12 +20,14 @@ public:
     explicit OptionsWindow(QWidget *parent = nullptr);
     ~OptionsWindow();
 
+    void setDirectories(QStringList *directories);
     void setCopyProfiles(CopyProfileListModel *copyProfiles);
 
 protected:
     void showEvent(QShowEvent *event);
 
 private slots:
+    void on_btnAddDirectory_clicked();
     void on_btnAddCopyProfile_clicked();
     void on_btnDeleteCopyProfile_clicked();
     void on_buttonBox_clicked(QAbstractButton *button);
@@ -38,6 +41,9 @@ private:
     Ui::OptionsWindow *ui;
     AddCopyProfileWindow addCopyProfileWindow;
 
+    QStringList *_directories = nullptr;
+    QStringList _workingDirectories;
+    QStringListModel _workingDirectoriesModel;
     CopyProfileListModel *_copyProfiles = nullptr;
     CopyProfileListModel _workingCopyProfiles; // Temporary storage for options
 };

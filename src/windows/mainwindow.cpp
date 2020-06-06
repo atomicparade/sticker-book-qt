@@ -10,6 +10,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    optionsWindow.setDirectories(&_directories);
+
     ui->cbCopyProfile->setModel(&_copyProfiles);
     optionsWindow.setCopyProfiles(&_copyProfiles);
 
