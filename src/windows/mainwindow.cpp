@@ -2,8 +2,10 @@
 
 #include <QClipboard>
 #include <QCloseEvent>
+#include <QColorDialog>
 #include <QDir>
 #include <QDirIterator>
+#include <QPainter>
 #include <QScrollBar>
 #include <QTranslator>
 #include <QWindow>
@@ -16,6 +18,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
     , optionsWindow(QLocale())
     , _currentLocale(QLocale())
+    , _background(Qt::transparent)
+    , _backgroundPixmap(16, 16)
     , _stickerGrid()
     , _settings(QCoreApplication::organizationName(), QCoreApplication::applicationName(), this)
     , _copyProfiles(this)
@@ -29,6 +33,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->cbCopyProfile->setModel(&_copyProfiles);
     optionsWindow.setCopyProfiles(&_copyProfiles);
+
+    ui->lblBackground->setText("");
 
     _stickerGrid.setLayout(ui->stickerGridLayout);
 
@@ -80,6 +86,22 @@ void MainWindow::on_actionExit_triggered()
 void MainWindow::on_actionOptions_triggered()
 {
     optionsWindow.exec();
+}
+
+void MainWindow::on_btnBackground_clicked()
+{
+    QColor color = QColorDialog::getColor(
+                _background,
+                this,
+                "Select Background Color",
+                QColorDialog::ShowAlphaChannel
+    );
+
+    if (color.isValid())
+    {
+        _background = color;
+        updateBackgroundColor();
+    }
 }
 
 void MainWindow::on_btnReloadImages_clicked()
@@ -175,6 +197,18 @@ void MainWindow::on_stickerClicked(Sticker *sticker)
         ) {
             finalImage = finalImage.scaledToWidth(maxWidth, Qt::SmoothTransformation);
         }
+    }
+
+    if (_background.alpha() > 0)
+    {
+        QImage image(finalImage.size(), QImage::Format_ARGB32);
+        image.fill(_background);
+
+        QPainter painter(&image);
+        painter.drawImage(0, 0, finalImage);
+        painter.end();
+
+        finalImage = image;
     }
 
     clipboard->setImage(finalImage);
@@ -291,6 +325,9 @@ void MainWindow::loadSettings()
     _currentLocale = _settings.value("locale", QLocale()).toLocale();
     optionsWindow.setCurrentLocale(_currentLocale);
     updateLocale(_currentLocale);
+
+    _background = _settings.value("background", QColor::fromRgb(0, 0, 0, 0)).value<QColor>();
+    updateBackgroundColor();
 }
 
 void MainWindow::saveSettings()
@@ -330,6 +367,15 @@ void MainWindow::saveSettings()
     _settings.endGroup();
 
     _settings.setValue("locale", _currentLocale);
+
+    _settings.setValue("background", _background);
+}
+
+void MainWindow::updateBackgroundColor()
+{
+    _backgroundPixmap.fill(Qt::white);
+    _backgroundPixmap.fill(_background);
+    ui->lblBackground->setPixmap(_backgroundPixmap);
 }
 
 void MainWindow::updateLocale(QLocale locale)

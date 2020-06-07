@@ -69,6 +69,14 @@
         <source>E&amp;xit</source>
         <translation></translation>
     </message>
+    <message>
+        <source>Copy with background color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Background</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OptionsWindow</name>

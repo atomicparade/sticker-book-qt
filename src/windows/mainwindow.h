@@ -34,6 +34,7 @@ private slots:
     void on_actionAbout_triggered();
     void on_actionExit_triggered();
     void on_actionOptions_triggered();
+    void on_btnBackground_clicked();
     void on_btnReloadImages_clicked();
     void on_leSearch_textChanged(const QString &searchText);
 
@@ -46,6 +47,7 @@ private:
     void loadStickers();
     void loadSettings();
     void saveSettings();
+    void updateBackgroundColor();
     void updateLocale(QLocale locale);
     void updateStickerGridLayout();
 
@@ -56,6 +58,9 @@ private:
 
     QTranslator _translator;
     QLocale _currentLocale;
+
+    QColor _background;
+    QPixmap _backgroundPixmap;
 
     StickerGrid _stickerGrid;
 
