@@ -108,9 +108,60 @@ void MainWindow::on_stickerClicked(Sticker *sticker)
 
     QImage finalImage = sticker->image();
 
-    if (!copyProfile.isActualSize())
+    const int height = finalImage.height();
+    const int width = finalImage.width();
+    const int maxHeight = copyProfile.height();
+    const int maxWidth = copyProfile.width();
+    const bool scaleUp = copyProfile.scaleUp();
+
+    if (maxHeight > 0 && maxWidth > 0)
     {
-        // TODO
+        if (height > maxHeight || width > maxWidth)
+        {
+            const double widthRatio = static_cast<double>(width) / maxWidth;
+            const double heightRatio = static_cast<double>(height) / maxHeight;
+
+            if (widthRatio > heightRatio)
+            {
+                finalImage = finalImage.scaledToWidth(maxWidth, Qt::SmoothTransformation);
+            }
+            else
+            {
+                finalImage = finalImage.scaledToHeight(maxHeight, Qt::SmoothTransformation);
+            }
+        }
+        else if ((height < maxHeight || width < maxWidth) && scaleUp)
+        {
+            const double widthRatio = static_cast<double>(width) / maxWidth;
+            const double heightRatio = static_cast<double>(height) / maxHeight;
+
+            if (widthRatio > heightRatio)
+            {
+                finalImage = finalImage.scaledToWidth(maxWidth, Qt::SmoothTransformation);
+            }
+            else
+            {
+                finalImage = finalImage.scaledToHeight(maxHeight, Qt::SmoothTransformation);
+            }
+        }
+    }
+    else if (maxHeight > 0)
+    {
+        if (
+                 (height > maxHeight) ||
+                 (height < maxHeight && scaleUp)
+        ) {
+            finalImage = finalImage.scaledToHeight(maxHeight, Qt::SmoothTransformation);
+        }
+    }
+    else if (maxWidth > 0)
+    {
+        if (
+                 (width > maxWidth) ||
+                 (width < maxWidth && scaleUp)
+        ) {
+            finalImage = finalImage.scaledToWidth(maxWidth, Qt::SmoothTransformation);
+        }
     }
 
     clipboard->setImage(finalImage);
