@@ -26,12 +26,14 @@ public:
 
 protected:
     void closeEvent(QCloseEvent *event) override;
+    void resizeEvent(QResizeEvent *event) override;
     void showEvent(QShowEvent *event) override;
 
 private slots:
     void on_actionAbout_triggered();
     void on_actionExit_triggered();
     void on_actionOptions_triggered();
+    void updateStickerGridLayout();
 
 private:
     void loadStickers();

@@ -3,6 +3,8 @@
 #include <QCloseEvent>
 #include <QDir>
 #include <QDirIterator>
+#include <QScrollBar>
+#include <QWindow>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -10,7 +12,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-    , _stickerGrid(this)
+    , _stickerGrid()
     , _settings(QCoreApplication::organizationName(), QCoreApplication::applicationName(), this)
     , _copyProfiles(this)
 {
@@ -37,6 +39,13 @@ void MainWindow::closeEvent(QCloseEvent *event)
     event->accept();
 }
 
+void MainWindow::resizeEvent(QResizeEvent *event)
+{
+    Q_UNUSED(event);
+
+    updateStickerGridLayout();
+}
+
 void MainWindow::showEvent(QShowEvent *event)
 {
     event->accept();
@@ -56,6 +65,22 @@ void MainWindow::on_actionExit_triggered()
 void MainWindow::on_actionOptions_triggered()
 {
     optionsWindow.exec();
+}
+
+void MainWindow::updateStickerGridLayout()
+{
+    int leftMargin;
+    int topMargin;
+    int rightMargin;
+    int bottomMargin;
+
+    const int scrollAreaWidth = ui->scrollArea->geometry().width();
+    const int scrollbarWidth = qApp->style()->pixelMetric(QStyle::PM_ScrollBarExtent);
+    ui->stickerGridLayout->getContentsMargins(&leftMargin, &topMargin, &rightMargin, &bottomMargin);
+
+    const int contentAreaWidth = scrollAreaWidth - scrollbarWidth - leftMargin - rightMargin;
+
+    _stickerGrid.updateLayout(contentAreaWidth);
 }
 
 void MainWindow::loadStickers()
@@ -87,6 +112,8 @@ void MainWindow::loadStickers()
     std::sort(_stickers.begin(), _stickers.end());
 
     _stickerGrid.loadStickers(&_stickers);
+
+    updateStickerGridLayout();
 }
 
 void MainWindow::loadSettings()
