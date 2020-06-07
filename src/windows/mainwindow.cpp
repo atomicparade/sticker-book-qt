@@ -113,7 +113,12 @@ void MainWindow::loadStickers()
 
         while (it.hasNext())
         {
-            _stickers.append(Sticker(it.next()));
+            Sticker newSticker = Sticker(it.next());
+
+            if (!_stickers.contains(newSticker))
+            {
+                _stickers.append(newSticker);
+            }
         }
     }
 
