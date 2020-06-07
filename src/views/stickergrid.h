@@ -10,6 +10,7 @@
 class StickerGrid : public QObject
 {
     Q_OBJECT
+
 public:
     const int kButtonWidth = 64;
     const int kButtonHeight = 64;
@@ -26,7 +27,7 @@ signals:
     void stickerClicked(Sticker *sticker);
 
 private slots:
-    void stickerButtonClicked();
+    void on_stickerClicked();
 
 private:
     int _scrollbarWidth;

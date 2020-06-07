@@ -27,10 +27,10 @@ MainWindow::MainWindow(QWidget *parent)
     _stickerGrid.setLayout(ui->stickerGridLayout);
 
     connect(&optionsWindow, &OptionsWindow::directoriesUpdated,
-            this, &MainWindow::directoriesUpdated);
+            this, &MainWindow::on_directoriesUpdated);
 
     connect(&_stickerGrid, &StickerGrid::stickerClicked,
-            this, &MainWindow::stickerClicked);
+            this, &MainWindow::on_stickerClicked);
 
     loadSettings();
 }
@@ -79,7 +79,7 @@ void MainWindow::on_btnReloadImages_clicked()
     loadStickers();
 }
 
-void MainWindow::directoriesUpdated()
+void MainWindow::on_directoriesUpdated()
 {
     loadStickers();
 }
@@ -100,7 +100,7 @@ void MainWindow::updateStickerGridLayout()
     _stickerGrid.updateLayout(contentAreaWidth);
 }
 
-void MainWindow::stickerClicked(Sticker *sticker)
+void MainWindow::on_stickerClicked(Sticker *sticker)
 {
     QClipboard *clipboard = QGuiApplication::clipboard();
 

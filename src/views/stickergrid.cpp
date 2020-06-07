@@ -36,7 +36,7 @@ void StickerGrid::loadStickers(QVector<Sticker> *stickers)
         button->setFlat(true);
         button->setIcon(QPixmap::fromImage(sticker.image()));
         button->setToolTip(sticker.name());
-        connect(button, &QPushButton::clicked, this, &StickerGrid::stickerButtonClicked);
+        connect(button, &QPushButton::clicked, this, &StickerGrid::on_stickerClicked);
 
         _buttons.insert(&sticker, button);
         _layout->addWidget(button);
@@ -84,7 +84,7 @@ void StickerGrid::updateLayout(int contentAreaWidth)
     _layout->setColumnStretch(buttonsPerRow, 1);
 }
 
-void StickerGrid::stickerButtonClicked()
+void StickerGrid::on_stickerClicked()
 {
     QPushButton *buttonClicked = qobject_cast<QPushButton*>(sender());
 

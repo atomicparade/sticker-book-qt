@@ -7,7 +7,6 @@
 
 class CopyProfileListModel : public QAbstractListModel
 {
-    Q_OBJECT
 public:
     explicit CopyProfileListModel(QObject *parent = nullptr);
 

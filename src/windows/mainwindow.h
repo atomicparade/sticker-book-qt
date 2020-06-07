@@ -35,14 +35,15 @@ private slots:
     void on_actionOptions_triggered();
     void on_btnReloadImages_clicked();
     void on_leSearch_textChanged(const QString &searchText);
-    void directoriesUpdated();
-    void updateStickerGridLayout();
-    void stickerClicked(Sticker *sticker);
+
+    void on_directoriesUpdated();
+    void on_stickerClicked(Sticker *sticker);
 
 private:
     void loadStickers();
     void loadSettings();
     void saveSettings();
+    void updateStickerGridLayout();
 
 private:
     Ui::MainWindow *ui;

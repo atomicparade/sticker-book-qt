@@ -12,16 +12,16 @@ OptionsWindow::OptionsWindow(QWidget *parent)
     ui->setupUi(this);
 
     connect(&addCopyProfileWindow, &AddCopyProfileWindow::copyProfileDataAccepted,
-            this, &OptionsWindow::copyProfileDataAccepted);
+            this, &OptionsWindow::on_copyProfileDataAccepted);
 
     ui->lvDirectories->setEditTriggers(QAbstractItemView::NoEditTriggers); // Disable editing
     ui->lvDirectories->setModel(&_workingDirectoriesModel);
     connect(ui->lvDirectories->selectionModel(), &QItemSelectionModel::selectionChanged,
-            this, &OptionsWindow::recalculateDirectoryRemoveEnabled);
+            this, &OptionsWindow::on_directorySelectionChanged);
 
     ui->lvCopyProfiles->setModel(&_workingCopyProfiles);
     connect(ui->lvCopyProfiles->selectionModel(), &QItemSelectionModel::selectionChanged,
-            this, &OptionsWindow::recalculateCopyProfileDeleteEnabled);
+            this, &OptionsWindow::on_copyProfileSelectionChanged);
 }
 
 OptionsWindow::~OptionsWindow()
@@ -79,6 +79,8 @@ void OptionsWindow::on_btnRemoveDirectory_clicked()
     }
 
     _workingDirectoriesModel.setStringList(_workingDirectories);
+
+    recalculateDirectoryRemoveEnabled();
 }
 
 void OptionsWindow::on_btnAddCopyProfile_clicked()
@@ -97,6 +99,8 @@ void OptionsWindow::on_btnDeleteCopyProfile_clicked()
             _workingCopyProfiles.removeRow((*i).row());
         }
     }
+
+    recalculateCopyProfileDeleteEnabled();
 }
 
 void OptionsWindow::on_buttonBox_clicked(QAbstractButton *button)
@@ -112,9 +116,19 @@ void OptionsWindow::on_buttonBox_clicked(QAbstractButton *button)
     }
 }
 
-void OptionsWindow::copyProfileDataAccepted(int width, int height, bool scaleUp)
+void OptionsWindow::on_copyProfileDataAccepted(int width, int height, bool scaleUp)
 {
     _workingCopyProfiles.addCopyProfile(CopyProfile(width, height, scaleUp));
+}
+
+void OptionsWindow::on_directorySelectionChanged()
+{
+    recalculateDirectoryRemoveEnabled();
+}
+
+void OptionsWindow::on_copyProfileSelectionChanged()
+{
+    recalculateCopyProfileDeleteEnabled();
 }
 
 void OptionsWindow::recalculateDirectoryRemoveEnabled()

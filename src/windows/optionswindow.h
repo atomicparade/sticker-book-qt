@@ -35,11 +35,14 @@ private slots:
     void on_btnAddCopyProfile_clicked();
     void on_btnDeleteCopyProfile_clicked();
     void on_buttonBox_clicked(QAbstractButton *button);
-    void copyProfileDataAccepted(int width, int height, bool scaleUp);
-    void recalculateDirectoryRemoveEnabled();
-    void recalculateCopyProfileDeleteEnabled();
+
+    void on_copyProfileDataAccepted(int width, int height, bool scaleUp);
+    void on_directorySelectionChanged();
+    void on_copyProfileSelectionChanged();
 
 private:
+    void recalculateDirectoryRemoveEnabled();
+    void recalculateCopyProfileDeleteEnabled();
     void saveChanges();
 
 private:

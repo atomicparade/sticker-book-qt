@@ -26,9 +26,8 @@ protected:
     void showEvent(QShowEvent *event);
 
 private slots:
-    void eventMaxHeightOrMaxWidthChanged();
-
     void on_buttonBox_accepted();
+    void on_maxHeightOrMaxWidthChanged();
 
 private:
     Ui::AddCopyProfileWindow *ui;
