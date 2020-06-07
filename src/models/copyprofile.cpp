@@ -8,6 +8,8 @@ CopyProfile::CopyProfile(int width, int height, bool scaleUp)
     if (_width <= 0 && height <= 0)
     {
         _name = "Actual Size";
+        _width = -1;
+        _height = -1;
         _isActualSize = true;
     }
     else
@@ -19,10 +21,12 @@ CopyProfile::CopyProfile(int width, int height, bool scaleUp)
         else if (_width > 0 && height <= 0)
         {
             _name = "Width " + QString::number(_width) + "px";
+            _height = -1;
         }
         else if (_width <= 0 && height > 0)
         {
             _name = "Height " + QString::number(_height) + "px";
+            _width = -1;
         }
 
         if (_scaleUp)

@@ -254,6 +254,26 @@ void MainWindow::loadSettings()
     _settings.endArray();
 
     restoreGeometry(_settings.value("windowGeometry").toByteArray());
+
+    {
+        _settings.beginGroup("selectedCopyProfile");
+        const QVariant maybeWidth = _settings.value("width");
+        const QVariant maybeHeight = _settings.value("height");
+        const QVariant maybeScaleUp = _settings.value("scaleUp");
+        _settings.endGroup();
+
+        if (maybeWidth.isValid() && maybeHeight.isValid() && maybeScaleUp.isValid())
+        {
+            CopyProfile savedSelectedCopyProfile = CopyProfile(maybeWidth.toInt(), maybeHeight.toInt(), maybeScaleUp.toBool());
+
+            const int idx = _copyProfiles.indexOf(savedSelectedCopyProfile);
+
+            if (idx >= 0)
+            {
+                ui->cbCopyProfile->setCurrentIndex(idx);
+            }
+        }
+    }
 }
 
 void MainWindow::saveSettings()
@@ -284,6 +304,13 @@ void MainWindow::saveSettings()
     _settings.endArray();
 
     _settings.setValue("windowGeometry", saveGeometry());
+
+    CopyProfile selectedCopyProfile = getSelectedCopyProfile();
+    _settings.beginGroup("selectedCopyProfile");
+    _settings.setValue("width", selectedCopyProfile.width());
+    _settings.setValue("height", selectedCopyProfile.height());
+    _settings.setValue("scaleUp", selectedCopyProfile.scaleUp());
+    _settings.endGroup();
 }
 
 void MainWindow::on_leSearch_textChanged(const QString &searchText)

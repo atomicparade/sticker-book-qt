@@ -55,6 +55,11 @@ CopyProfile CopyProfileListModel::at(int index)
     return _copyProfiles.at(index);
 }
 
+int CopyProfileListModel::indexOf(const CopyProfile &copyProfile) const
+{
+    return _copyProfiles.indexOf(copyProfile);
+}
+
 void CopyProfileListModel::clear()
 {
     removeRows(0, _copyProfiles.size());
