@@ -52,3 +52,9 @@ compile_commands.json
 *creator.user*
 
 *_qmlcache.qrc
+
+# mxe
+.qmake.stash
+src/debug/*
+src/release/*
+src/*_resource.rc
