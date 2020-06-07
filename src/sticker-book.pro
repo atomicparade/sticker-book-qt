@@ -14,10 +14,14 @@ RESOURCES += \
     translations/lang_en.qm \
     translations/lang_es.qm
 
+win32 {
+    RC_ICONS = assets/icon.ico
+}
+
 VERSION = 1.0.0
 QMAKE_TARGET_COMPANY = Atomic Parade
 QMAKE_TARGET_PRODUCT = "Sticker Book"
-QMAKE_TARGET_COPYRIGHT = "\u2669 Atomic Parade 2020"
+QMAKE_TARGET_COPYRIGHT = "Copyright Atomic Parade 2020"
 
 DEFINES += \
     ORGANIZATION_NAME="\"\\\"$$QMAKE_TARGET_COMPANY\\\"\"" \
