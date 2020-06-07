@@ -3,6 +3,7 @@
 
 #include <QAbstractButton>
 #include <QDialog>
+#include <QMap>
 #include <QStringListModel>
 
 #include "models/copyprofilelistmodel.h"
@@ -17,14 +18,17 @@ class OptionsWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit OptionsWindow(QWidget *parent = nullptr);
+    explicit OptionsWindow(QLocale currentLocale, QWidget *parent = nullptr);
     ~OptionsWindow();
 
     void setDirectories(QStringList *directories);
     void setCopyProfiles(CopyProfileListModel *copyProfiles);
+    void setCurrentLocale(QLocale locale);
+    void retranslateUi();
 
 signals:
     void directoriesUpdated();
+    void localeUpdated(QLocale newLocale);
 
 protected:
     void showEvent(QShowEvent *event);
@@ -48,6 +52,9 @@ private:
 private:
     Ui::OptionsWindow *ui;
     AddCopyProfileWindow addCopyProfileWindow;
+
+    QMap<QString, QLocale> _locales;
+    QLocale _currentLocale;
 
     QStringList *_directories = nullptr;
     QStringList _workingDirectories;

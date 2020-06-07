@@ -122,44 +122,49 @@
         <source>D&amp;elete Copy Profile</source>
         <translation>Quita&amp;r prefil de copiar</translation>
     </message>
+    <message>
+        <location filename="../windows/optionswindow.ui" line="134"/>
+        <source>Language</source>
+        <translation>Idioma</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../models/copyprofile.cpp" line="12"/>
+        <location filename="../models/copyprofile.cpp" line="72"/>
         <source>Actual Size</source>
         <translation>Tamaño real</translation>
     </message>
     <message>
-        <location filename="../models/copyprofile.cpp" line="21"/>
-        <location filename="../models/copyprofile.cpp" line="26"/>
+        <location filename="../models/copyprofile.cpp" line="78"/>
+        <location filename="../models/copyprofile.cpp" line="83"/>
         <source>Width </source>
         <translation>Ancho </translation>
     </message>
     <message>
-        <location filename="../models/copyprofile.cpp" line="22"/>
+        <location filename="../models/copyprofile.cpp" line="79"/>
         <source>px, height </source>
         <translation>px, alto </translation>
     </message>
     <message>
-        <location filename="../models/copyprofile.cpp" line="22"/>
-        <location filename="../models/copyprofile.cpp" line="26"/>
-        <location filename="../models/copyprofile.cpp" line="31"/>
+        <location filename="../models/copyprofile.cpp" line="79"/>
+        <location filename="../models/copyprofile.cpp" line="83"/>
+        <location filename="../models/copyprofile.cpp" line="87"/>
         <source>px</source>
         <translation>px</translation>
     </message>
     <message>
-        <location filename="../models/copyprofile.cpp" line="31"/>
+        <location filename="../models/copyprofile.cpp" line="87"/>
         <source>Height </source>
         <translation>Alto </translation>
     </message>
     <message>
-        <location filename="../models/copyprofile.cpp" line="37"/>
+        <location filename="../models/copyprofile.cpp" line="92"/>
         <source>, scale up</source>
         <translation>, ampliar</translation>
     </message>
     <message>
-        <location filename="../models/copyprofile.cpp" line="41"/>
+        <location filename="../models/copyprofile.cpp" line="96"/>
         <source>, don&apos;t scale up</source>
         <translation>, no ampliar</translation>
     </message>
@@ -167,22 +172,22 @@
 <context>
     <name>QPlatformTheme</name>
     <message>
-        <location filename="../main.cpp" line="12"/>
+        <location filename="../main.cpp" line="9"/>
         <source>Apply</source>
         <translation>Aplicar</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="13"/>
+        <location filename="../main.cpp" line="10"/>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancelar</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="14"/>
+        <location filename="../main.cpp" line="11"/>
         <source>&amp;Close</source>
         <translation>&amp;Cerrar</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="15"/>
+        <location filename="../main.cpp" line="12"/>
         <source>&amp;OK</source>
         <translation>&amp;Aceptar</translation>
     </message>

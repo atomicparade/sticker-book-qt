@@ -5,9 +5,10 @@
 #include "optionswindow.h"
 #include "ui_optionswindow.h"
 
-OptionsWindow::OptionsWindow(QWidget *parent)
+OptionsWindow::OptionsWindow(QLocale currentLocale, QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::OptionsWindow)
+    , _currentLocale(currentLocale)
 {
     ui->setupUi(this);
 
@@ -22,6 +23,14 @@ OptionsWindow::OptionsWindow(QWidget *parent)
     ui->lvCopyProfiles->setModel(&_workingCopyProfiles);
     connect(ui->lvCopyProfiles->selectionModel(), &QItemSelectionModel::selectionChanged,
             this, &OptionsWindow::on_copyProfileSelectionChanged);
+
+    _locales.insert("English", QLocale::English);
+    _locales.insert("Espa\u00F1ol", QLocale::Spanish);
+
+    for (auto pair : _locales.toStdMap())
+    {
+        ui->cbLanguage->addItem(pair.first, pair.second);
+    }
 }
 
 OptionsWindow::~OptionsWindow()
@@ -39,6 +48,26 @@ void OptionsWindow::setCopyProfiles(CopyProfileListModel *copyProfiles)
     _copyProfiles = copyProfiles;
 }
 
+void OptionsWindow::setCurrentLocale(QLocale locale)
+{
+    QString currentLanguage = _locales.key(locale, "English");
+    ui->cbLanguage->setCurrentText(currentLanguage);
+
+    if (_currentLocale != locale)
+    {
+        emit localeUpdated(locale);
+    }
+
+    _currentLocale = locale;
+}
+
+void OptionsWindow::retranslateUi()
+{
+    ui->retranslateUi(this);
+    addCopyProfileWindow.retranslateUi();
+    _workingCopyProfiles.retranslate();
+}
+
 void OptionsWindow::showEvent(QShowEvent *event)
 {
     // Create copies of the current settings and work only on those copies
@@ -53,6 +82,9 @@ void OptionsWindow::showEvent(QShowEvent *event)
         _workingCopyProfiles.addCopyProfile(_copyProfiles->at(i));
     }
     recalculateCopyProfileDeleteEnabled();
+
+    QString currentLanguage = _locales.key(_currentLocale, "English");
+    ui->cbLanguage->setCurrentText(currentLanguage);
 
     event->accept();
 }
@@ -191,4 +223,7 @@ void OptionsWindow::saveChanges()
     {
         _copyProfiles->addCopyProfile(_workingCopyProfiles.at(i));
     }
+
+    const QString currentLanguage = ui->cbLanguage->currentText();
+    setCurrentLocale(_locales.find(currentLanguage).value());
 }

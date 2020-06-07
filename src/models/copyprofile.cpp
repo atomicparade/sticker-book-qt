@@ -7,42 +7,27 @@ CopyProfile::CopyProfile(int width, int height, bool scaleUp)
     , _height(height)
     , _scaleUp(scaleUp)
 {
-    if (_width <= 0 && height <= 0)
+    if (_width <= 0 && _height <= 0)
     {
-        _name = QObject::tr("Actual Size");
         _width = -1;
         _height = -1;
         _isActualSize = true;
     }
     else
     {
-        if (_width > 0 && height > 0)
+        if (_width > 0 && _height <= 0)
         {
-            _name = QObject::tr("Width ") + QString::number(_width) +
-                    QObject::tr("px, height ") + QString::number(_height) + QObject::tr("px");
-        }
-        else if (_width > 0 && height <= 0)
-        {
-            _name = QObject::tr("Width ") + QString::number(_width) + QObject::tr("px");
             _height = -1;
         }
-        else if (_width <= 0 && height > 0)
+        else if (_width <= 0 && _height > 0)
         {
-            _name = QObject::tr("Height ") + QString::number(_height) + QObject::tr("px");
             _width = -1;
-        }
-
-        if (_scaleUp)
-        {
-            _name += QObject::tr(", scale up");
-        }
-        else
-        {
-            _name += QObject::tr(", don't scale up");
         }
 
         _isActualSize = false;
     }
+
+    retranslate();
 }
 
 bool CopyProfile::operator==(const CopyProfile &other) const
@@ -78,4 +63,37 @@ bool CopyProfile::isActualSize() const
 QString CopyProfile::name() const
 {
     return _name;
+}
+
+void CopyProfile::retranslate()
+{
+    if (_width <= 0 && _height <= 0)
+    {
+        _name = QObject::tr("Actual Size");
+    }
+    else
+    {
+        if (_width > 0 && _height > 0)
+        {
+            _name = QObject::tr("Width ") + QString::number(_width) +
+                    QObject::tr("px, height ") + QString::number(_height) + QObject::tr("px");
+        }
+        else if (_width > 0 && _height <= 0)
+        {
+            _name = QObject::tr("Width ") + QString::number(_width) + QObject::tr("px");
+        }
+        else if (_width <= 0 && _height > 0)
+        {
+            _name = QObject::tr("Height ") + QString::number(_height) + QObject::tr("px");
+        }
+
+        if (_scaleUp)
+        {
+            _name += QObject::tr(", scale up");
+        }
+        else
+        {
+            _name += QObject::tr(", don't scale up");
+        }
+    }
 }

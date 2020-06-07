@@ -18,6 +18,7 @@ public:
     int indexOf(const CopyProfile &copyProfile) const;
     void clear();
     void addCopyProfile(CopyProfile copyProfile);
+    void retranslate();
 
 private:
     QVector<CopyProfile> _copyProfiles;

@@ -19,6 +19,8 @@ public:
     explicit AddCopyProfileWindow(QWidget *parent = nullptr);
     ~AddCopyProfileWindow();
 
+    void retranslateUi();
+
 signals:
     void copyProfileDataAccepted(int width, int height, bool scaleUp);
 

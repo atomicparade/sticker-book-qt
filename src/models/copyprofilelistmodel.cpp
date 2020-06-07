@@ -74,3 +74,13 @@ void CopyProfileListModel::addCopyProfile(CopyProfile copyProfile)
         endInsertRows();
     }
 }
+
+void CopyProfileListModel::retranslate()
+{
+    for (CopyProfile &copyProfile : _copyProfiles)
+    {
+        copyProfile.retranslate();
+    }
+
+    emit dataChanged(index(0), index(_copyProfiles.size() - 1));
+}

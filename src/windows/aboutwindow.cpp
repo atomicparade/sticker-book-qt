@@ -13,3 +13,8 @@ AboutWindow::~AboutWindow()
 {
     delete ui;
 }
+
+void AboutWindow::retranslateUi()
+{
+    ui->retranslateUi(this);
+}

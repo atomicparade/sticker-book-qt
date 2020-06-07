@@ -15,6 +15,8 @@ public:
     explicit AboutWindow(QWidget *parent = nullptr);
     ~AboutWindow();
 
+    void retranslateUi();
+
 private:
     Ui::AboutWindow *ui;
 };

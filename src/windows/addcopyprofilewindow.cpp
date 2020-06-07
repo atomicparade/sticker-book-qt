@@ -22,6 +22,11 @@ AddCopyProfileWindow::~AddCopyProfileWindow()
     delete ui;
 }
 
+void AddCopyProfileWindow::retranslateUi()
+{
+    ui->retranslateUi(this);
+}
+
 void AddCopyProfileWindow::showEvent(QShowEvent *event)
 {
     ui->leWidth->setText("");

@@ -13,12 +13,15 @@ public:
 
     CopyProfile() = default;
     CopyProfile(int width, int height, bool scaleUp);
+
     bool operator==(const CopyProfile &other) const;
     int width() const;
     int height() const;
     bool scaleUp() const;
     bool isActualSize() const;
     QString name() const;
+
+    void retranslate();
 
 private:
     int _width;

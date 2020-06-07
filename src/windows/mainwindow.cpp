@@ -14,6 +14,8 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , optionsWindow(QLocale())
+    , _currentLocale(QLocale())
     , _stickerGrid()
     , _settings(QCoreApplication::organizationName(), QCoreApplication::applicationName(), this)
     , _copyProfiles(this)
@@ -32,6 +34,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(&optionsWindow, &OptionsWindow::directoriesUpdated,
             this, &MainWindow::on_directoriesUpdated);
+    connect(&optionsWindow, &OptionsWindow::localeUpdated,
+            this, &MainWindow::on_localeUpdated);
 
     connect(&_stickerGrid, &StickerGrid::stickerClicked,
             this, &MainWindow::on_stickerClicked);
@@ -86,6 +90,11 @@ void MainWindow::on_btnReloadImages_clicked()
 void MainWindow::on_directoriesUpdated()
 {
     loadStickers();
+}
+
+void MainWindow::on_localeUpdated(QLocale locale)
+{
+    updateLocale(locale);
 }
 
 void MainWindow::updateStickerGridLayout()
@@ -278,6 +287,10 @@ void MainWindow::loadSettings()
             }
         }
     }
+
+    _currentLocale = _settings.value("locale", QLocale()).toLocale();
+    optionsWindow.setCurrentLocale(_currentLocale);
+    updateLocale(_currentLocale);
 }
 
 void MainWindow::saveSettings()
@@ -315,9 +328,11 @@ void MainWindow::saveSettings()
     _settings.setValue("height", selectedCopyProfile.height());
     _settings.setValue("scaleUp", selectedCopyProfile.scaleUp());
     _settings.endGroup();
+
+    _settings.setValue("locale", _currentLocale);
 }
 
-void MainWindow::updateTranslation(QLocale locale)
+void MainWindow::updateLocale(QLocale locale)
 {
     const bool translationLoaded = _translator.load(locale, "lang", "_", ":/translations", ".qm");
 
@@ -326,7 +341,12 @@ void MainWindow::updateTranslation(QLocale locale)
         qApp->removeTranslator(&_translator);
         qApp->installTranslator(&_translator);
         ui->retranslateUi(this);
+        optionsWindow.retranslateUi();
+        aboutWindow.retranslateUi();
+        _copyProfiles.retranslate();
     }
+
+    _currentLocale = locale;
 }
 
 void MainWindow::on_leSearch_textChanged(const QString &searchText)

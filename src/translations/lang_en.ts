@@ -100,6 +100,10 @@
         <source>D&amp;elete Copy Profile</source>
         <translation></translation>
     </message>
+    <message>
+        <source>Language</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>

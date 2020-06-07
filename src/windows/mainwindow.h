@@ -38,6 +38,7 @@ private slots:
     void on_leSearch_textChanged(const QString &searchText);
 
     void on_directoriesUpdated();
+    void on_localeUpdated(QLocale locale);
     void on_stickerClicked(Sticker *sticker);
 
 private:
@@ -45,7 +46,7 @@ private:
     void loadStickers();
     void loadSettings();
     void saveSettings();
-    void updateTranslation(QLocale locale);
+    void updateLocale(QLocale locale);
     void updateStickerGridLayout();
 
 private:
@@ -54,6 +55,7 @@ private:
     OptionsWindow optionsWindow;
 
     QTranslator _translator;
+    QLocale _currentLocale;
 
     StickerGrid _stickerGrid;
 
