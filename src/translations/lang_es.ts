@@ -120,7 +120,7 @@
     <message>
         <location filename="../windows/optionswindow.ui" line="103"/>
         <source>D&amp;elete Copy Profile</source>
-        <translation>Quita&amp;r prefil de copiar</translation>
+        <translation type="unfinished">Quita&amp;r perfil de copiar</translation>
     </message>
     <message>
         <location filename="../windows/optionswindow.ui" line="134"/>
