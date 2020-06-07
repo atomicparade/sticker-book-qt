@@ -5,6 +5,7 @@
 #include <QDir>
 #include <QDirIterator>
 #include <QScrollBar>
+#include <QTranslator>
 #include <QWindow>
 
 #include "mainwindow.h"
@@ -17,6 +18,9 @@ MainWindow::MainWindow(QWidget *parent)
     , _settings(QCoreApplication::organizationName(), QCoreApplication::applicationName(), this)
     , _copyProfiles(this)
 {
+    _translator.load(QLocale(), "lang", "_", ":/translations", ".qm");
+    qApp->installTranslator(&_translator);
+
     ui->setupUi(this);
 
     optionsWindow.setDirectories(&_directories);
@@ -311,6 +315,18 @@ void MainWindow::saveSettings()
     _settings.setValue("height", selectedCopyProfile.height());
     _settings.setValue("scaleUp", selectedCopyProfile.scaleUp());
     _settings.endGroup();
+}
+
+void MainWindow::updateTranslation(QLocale locale)
+{
+    const bool translationLoaded = _translator.load(locale, "lang", "_", ":/translations", ".qm");
+
+    if (translationLoaded)
+    {
+        qApp->removeTranslator(&_translator);
+        qApp->installTranslator(&_translator);
+        ui->retranslateUi(this);
+    }
 }
 
 void MainWindow::on_leSearch_textChanged(const QString &searchText)

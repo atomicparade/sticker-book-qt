@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QSettings>
 #include <QStringList>
+#include <QTranslator>
 
 #include <views/stickergrid.h>
 
@@ -44,12 +45,15 @@ private:
     void loadStickers();
     void loadSettings();
     void saveSettings();
+    void updateTranslation(QLocale locale);
     void updateStickerGridLayout();
 
 private:
     Ui::MainWindow *ui;
     AboutWindow aboutWindow;
     OptionsWindow optionsWindow;
+
+    QTranslator _translator;
 
     StickerGrid _stickerGrid;
 
