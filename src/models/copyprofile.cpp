@@ -8,6 +8,7 @@ CopyProfile::CopyProfile(int width, int height, bool scaleUp)
     if (_width <= 0 && height <= 0)
     {
         _name = "Actual Size";
+        _isActualSize = true;
     }
     else
     {
@@ -32,14 +33,19 @@ CopyProfile::CopyProfile(int width, int height, bool scaleUp)
         {
             _name += ", don't scale up";
         }
+
+        _isActualSize = false;
     }
 }
 
 bool CopyProfile::operator==(const CopyProfile &other) const
 {
-    // Compare by name instead of width/height/scaleUp
-    // This takes care of Actual Size
-    return _name == other._name;
+    return (_isActualSize && other._isActualSize) ||
+            (
+                _width == other._width &&
+                _height == other._height &&
+                _scaleUp == other._scaleUp
+            );
 }
 
 int CopyProfile::width() const
@@ -55,6 +61,11 @@ int CopyProfile::height() const
 bool CopyProfile::scaleUp() const
 {
     return _scaleUp;
+}
+
+bool CopyProfile::isActualSize() const
+{
+    return _isActualSize;
 }
 
 QString CopyProfile::name() const

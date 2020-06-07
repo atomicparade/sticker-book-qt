@@ -24,6 +24,9 @@ QVariant CopyProfileListModel::data(const QModelIndex &index, int role) const
     case Qt::AccessibleDescriptionRole:
         return _copyProfiles.at(index.row()).name();
         break;
+    case CopyProfile::Role::IsActualSizeRole:
+        return _copyProfiles.at(index.row()).isActualSize();
+        break;
     }
 
     return QVariant();

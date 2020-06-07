@@ -40,6 +40,7 @@ private slots:
     void on_stickerClicked(Sticker *sticker);
 
 private:
+    CopyProfile getSelectedCopyProfile();
     void loadStickers();
     void loadSettings();
     void saveSettings();

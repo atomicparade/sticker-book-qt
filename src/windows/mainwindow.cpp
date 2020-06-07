@@ -102,11 +102,23 @@ void MainWindow::updateStickerGridLayout()
 
 void MainWindow::on_stickerClicked(Sticker *sticker)
 {
+    const CopyProfile copyProfile = getSelectedCopyProfile();
+
     QClipboard *clipboard = QGuiApplication::clipboard();
 
     QImage finalImage = sticker->image();
 
+    if (!copyProfile.isActualSize())
+    {
+        // TODO
+    }
+
     clipboard->setImage(finalImage);
+}
+
+CopyProfile MainWindow::getSelectedCopyProfile()
+{
+    return _copyProfiles.at(ui->cbCopyProfile->currentIndex());
 }
 
 void MainWindow::loadStickers()
@@ -181,7 +193,7 @@ void MainWindow::loadSettings()
         {
             CopyProfile copyProfile(maybeWidth.toInt(), maybeHeight.toInt(), maybeScaleUp.toBool());
 
-            if (copyProfile.name() != "Actual Size")
+            if (!copyProfile.isActualSize())
             {
                 _copyProfiles.addCopyProfile(copyProfile);
             }
@@ -209,7 +221,7 @@ void MainWindow::saveSettings()
     {
         CopyProfile copyProfile = _copyProfiles.at(i);
 
-        if (copyProfile.name() != "Actual Size")
+        if (!copyProfile.isActualSize())
         {
             _settings.setArrayIndex(nextIndex);
             _settings.setValue("width", copyProfile.width());

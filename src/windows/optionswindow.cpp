@@ -94,7 +94,7 @@ void OptionsWindow::on_btnDeleteCopyProfile_clicked()
 
     for (auto i = selectedIndexes.rbegin(); i != selectedIndexes.rend(); ++i)
     {
-        if ((*i).data() != "Actual Size")
+        if (!(*i).data(CopyProfile::Role::IsActualSizeRole).toBool())
         {
             _workingCopyProfiles.removeRow((*i).row());
         }
@@ -150,7 +150,7 @@ void OptionsWindow::recalculateCopyProfileDeleteEnabled()
     {
         QModelIndex selectedIndex = selectedIndexes.first();
 
-        if (selectedIndex.isValid() && selectedIndex.data().toString().compare("Actual Size") != 0)
+        if (selectedIndex.isValid() && !selectedIndex.data(CopyProfile::Role::IsActualSizeRole).toBool())
         {
             enableButton = true;
         }
