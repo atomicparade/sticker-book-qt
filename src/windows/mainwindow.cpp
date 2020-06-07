@@ -25,6 +25,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     _stickerGrid.setLayout(ui->stickerGridLayout);
 
+    connect(&optionsWindow, &OptionsWindow::directoriesUpdated,
+            this, &MainWindow::directoriesUpdated);
+
     loadSettings();
 }
 
@@ -50,7 +53,6 @@ void MainWindow::showEvent(QShowEvent *event)
 {
     event->accept();
     loadStickers();
-    updateStickerGridLayout();
 }
 
 void MainWindow::on_actionAbout_triggered()
@@ -66,6 +68,11 @@ void MainWindow::on_actionExit_triggered()
 void MainWindow::on_actionOptions_triggered()
 {
     optionsWindow.exec();
+}
+
+void MainWindow::directoriesUpdated()
+{
+    loadStickers();
 }
 
 void MainWindow::updateStickerGridLayout()
@@ -113,6 +120,7 @@ void MainWindow::loadStickers()
     std::sort(_stickers.begin(), _stickers.end(), StickerNameComparator());
 
     _stickerGrid.loadStickers(&_stickers);
+    updateStickerGridLayout();
 }
 
 void MainWindow::loadSettings()

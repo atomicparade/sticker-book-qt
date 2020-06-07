@@ -33,6 +33,7 @@ private slots:
     void on_actionAbout_triggered();
     void on_actionExit_triggered();
     void on_actionOptions_triggered();
+    void directoriesUpdated();
     void updateStickerGridLayout();
 
     void on_leSearch_textChanged(const QString &searchText);

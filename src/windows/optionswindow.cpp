@@ -169,6 +169,7 @@ void OptionsWindow::saveChanges()
     if (updateDirectories)
     {
         *_directories = _workingDirectories;
+        emit directoriesUpdated();
     }
 
     _copyProfiles->clear();

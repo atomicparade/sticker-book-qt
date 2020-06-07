@@ -23,6 +23,9 @@ public:
     void setDirectories(QStringList *directories);
     void setCopyProfiles(CopyProfileListModel *copyProfiles);
 
+signals:
+    void directoriesUpdated();
+
 protected:
     void showEvent(QShowEvent *event);
 
