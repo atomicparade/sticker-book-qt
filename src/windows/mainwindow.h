@@ -60,6 +60,7 @@ private:
     QLocale _currentLocale;
 
     QColor _background;
+    QImage _backgroundImage;
     QPixmap _backgroundPixmap;
 
     StickerGrid _stickerGrid;

@@ -6,6 +6,7 @@
 #include <QDir>
 #include <QDirIterator>
 #include <QPainter>
+#include <QPixmap>
 #include <QScrollBar>
 #include <QTranslator>
 #include <QWindow>
@@ -19,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
     , optionsWindow(QLocale())
     , _currentLocale(QLocale())
     , _background(Qt::transparent)
-    , _backgroundPixmap(16, 16)
+    , _backgroundImage(16, 16, QImage::Format_ARGB32)
     , _stickerGrid()
     , _settings(QCoreApplication::organizationName(), QCoreApplication::applicationName(), this)
     , _copyProfiles(this)
@@ -373,8 +374,20 @@ void MainWindow::saveSettings()
 
 void MainWindow::updateBackgroundColor()
 {
-    _backgroundPixmap.fill(Qt::white);
-    _backgroundPixmap.fill(_background);
+    QPainter painter(&_backgroundImage);
+
+    // Draw alpha checkers
+    painter.fillRect(0, 0, 15, 15, QColor::fromRgb(192, 192, 192));
+    painter.fillRect(8, 0, 15, 8, QColor::fromRgb(128, 128, 128));
+    painter.fillRect(0, 8, 8, 15, QColor::fromRgb(128, 128, 128));
+
+    painter.fillRect(0, 0, 15, 15, _background);
+
+    // Draw border
+    painter.drawRect(0, 0, 15, 15);
+    painter.end();
+
+    _backgroundPixmap = QPixmap::fromImage(_backgroundImage);
     ui->lblBackground->setPixmap(_backgroundPixmap);
 }
 
