@@ -37,6 +37,7 @@ private slots:
     void on_leSearch_textChanged(const QString &searchText);
     void directoriesUpdated();
     void updateStickerGridLayout();
+    void stickerClicked(Sticker *sticker);
 
 private:
     void loadStickers();

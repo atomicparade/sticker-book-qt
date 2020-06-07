@@ -1,5 +1,6 @@
 #include <algorithm>
 
+#include <QClipboard>
 #include <QCloseEvent>
 #include <QDir>
 #include <QDirIterator>
@@ -27,6 +28,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(&optionsWindow, &OptionsWindow::directoriesUpdated,
             this, &MainWindow::directoriesUpdated);
+
+    connect(&_stickerGrid, &StickerGrid::stickerClicked,
+            this, &MainWindow::stickerClicked);
 
     loadSettings();
 }
@@ -94,6 +98,15 @@ void MainWindow::updateStickerGridLayout()
     const int contentAreaWidth = scrollAreaWidth - scrollbarWidth - leftMargin - rightMargin;
 
     _stickerGrid.updateLayout(contentAreaWidth);
+}
+
+void MainWindow::stickerClicked(Sticker *sticker)
+{
+    QClipboard *clipboard = QGuiApplication::clipboard();
+
+    QImage finalImage = sticker->image();
+
+    clipboard->setImage(finalImage);
 }
 
 void MainWindow::loadStickers()

@@ -3,6 +3,11 @@
 
 #include "stickergrid.h"
 
+StickerGrid::StickerGrid(QObject *parent)
+    : QObject(parent)
+{
+}
+
 void StickerGrid::setScrollbarWidth(int scrollbarWidth)
 {
     _scrollbarWidth = scrollbarWidth;
@@ -31,6 +36,7 @@ void StickerGrid::loadStickers(QVector<Sticker> *stickers)
         button->setFlat(true);
         button->setIcon(QPixmap::fromImage(sticker.image()));
         button->setToolTip(sticker.name());
+        connect(button, &QPushButton::clicked, this, &StickerGrid::stickerButtonClicked);
 
         _buttons.insert(&sticker, button);
         _layout->addWidget(button);
@@ -76,4 +82,18 @@ void StickerGrid::updateLayout(int contentAreaWidth)
 
     _layout->addWidget(&_rightSpacer, buttonsPerRow, 0);
     _layout->setColumnStretch(buttonsPerRow, 1);
+}
+
+void StickerGrid::stickerButtonClicked()
+{
+    QPushButton *buttonClicked = qobject_cast<QPushButton*>(sender());
+
+    for (auto pair : _buttons.toStdMap())
+    {
+        if (pair.second == buttonClicked)
+        {
+            emit stickerClicked(pair.first);
+            break;
+        }
+    }
 }
