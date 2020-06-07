@@ -33,10 +33,10 @@ private slots:
     void on_actionAbout_triggered();
     void on_actionExit_triggered();
     void on_actionOptions_triggered();
+    void on_btnReloadImages_clicked();
+    void on_leSearch_textChanged(const QString &searchText);
     void directoriesUpdated();
     void updateStickerGridLayout();
-
-    void on_leSearch_textChanged(const QString &searchText);
 
 private:
     void loadStickers();

@@ -70,6 +70,11 @@ void MainWindow::on_actionOptions_triggered()
     optionsWindow.exec();
 }
 
+void MainWindow::on_btnReloadImages_clicked()
+{
+    loadStickers();
+}
+
 void MainWindow::directoriesUpdated()
 {
     loadStickers();
