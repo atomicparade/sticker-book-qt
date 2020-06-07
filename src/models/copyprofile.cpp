@@ -1,3 +1,5 @@
+#include <QObject>
+
 #include "copyprofile.h"
 
 CopyProfile::CopyProfile(int width, int height, bool scaleUp)
@@ -7,7 +9,7 @@ CopyProfile::CopyProfile(int width, int height, bool scaleUp)
 {
     if (_width <= 0 && height <= 0)
     {
-        _name = "Actual Size";
+        _name = QObject::tr("Actual Size");
         _width = -1;
         _height = -1;
         _isActualSize = true;
@@ -16,26 +18,27 @@ CopyProfile::CopyProfile(int width, int height, bool scaleUp)
     {
         if (_width > 0 && height > 0)
         {
-            _name = "Width " + QString::number(_width) + "px, height " + QString::number(_height) + "px";
+            _name = QObject::tr("Width ") + QString::number(_width) +
+                    QObject::tr("px, height ") + QString::number(_height) + QObject::tr("px");
         }
         else if (_width > 0 && height <= 0)
         {
-            _name = "Width " + QString::number(_width) + "px";
+            _name = QObject::tr("Width ") + QString::number(_width) + QObject::tr("px");
             _height = -1;
         }
         else if (_width <= 0 && height > 0)
         {
-            _name = "Height " + QString::number(_height) + "px";
+            _name = QObject::tr("Height ") + QString::number(_height) + QObject::tr("px");
             _width = -1;
         }
 
         if (_scaleUp)
         {
-            _name += ", scale up";
+            _name += QObject::tr(", scale up");
         }
         else
         {
-            _name += ", don't scale up";
+            _name += QObject::tr(", don't scale up");
         }
 
         _isActualSize = false;
