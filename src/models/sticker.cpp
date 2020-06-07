@@ -11,17 +11,17 @@ Sticker::Sticker(QString path)
 
 bool Sticker::operator<(const Sticker &other) const
 {
-    return _name.compare(other._name, Qt::CaseInsensitive) < 0;
+    return _path.compare(other._path, Qt::CaseInsensitive) < 0;
 }
 
 bool Sticker::operator>(const Sticker &other) const
 {
-    return _name.compare(other._name, Qt::CaseInsensitive) > 0;
+    return _path.compare(other._path, Qt::CaseInsensitive) > 0;
 }
 
 bool Sticker::operator==(const Sticker &other) const
 {
-    return _name.compare(other._name, Qt::CaseInsensitive) == 0;
+    return _path.compare(other._path, Qt::CaseInsensitive) == 0;
 }
 
 QString Sticker::path() const

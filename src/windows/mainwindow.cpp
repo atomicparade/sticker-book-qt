@@ -50,6 +50,7 @@ void MainWindow::showEvent(QShowEvent *event)
 {
     event->accept();
     loadStickers();
+    updateStickerGridLayout();
 }
 
 void MainWindow::on_actionAbout_triggered()
@@ -109,11 +110,9 @@ void MainWindow::loadStickers()
         }
     }
 
-    std::sort(_stickers.begin(), _stickers.end());
+    std::sort(_stickers.begin(), _stickers.end(), StickerNameComparator());
 
     _stickerGrid.loadStickers(&_stickers);
-
-    updateStickerGridLayout();
 }
 
 void MainWindow::loadSettings()
@@ -191,4 +190,22 @@ void MainWindow::saveSettings()
     _settings.endArray();
 
     _settings.setValue("windowGeometry", saveGeometry());
+}
+
+void MainWindow::on_leSearch_textChanged(const QString &searchText)
+{
+    const QString query = searchText.trimmed();
+
+    QVector<Sticker> stickersToHide;
+
+    for (const Sticker &sticker : _stickers)
+    {
+        if (!sticker.name().contains(query, Qt::CaseInsensitive))
+        {
+            stickersToHide.append(sticker);
+        }
+    }
+
+    _stickerGrid.hideStickers(&stickersToHide);
+    updateStickerGridLayout();
 }

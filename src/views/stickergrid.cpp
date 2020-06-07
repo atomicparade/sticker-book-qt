@@ -23,7 +23,7 @@ void StickerGrid::loadStickers(QVector<Sticker> *stickers)
 
     _buttons.clear();
 
-    for (const Sticker &sticker : *stickers)
+    for (Sticker &sticker : *stickers)
     {
         QPushButton *button = new QPushButton();
         button->setFixedSize(kButtonWidth, kButtonHeight);
@@ -32,8 +32,18 @@ void StickerGrid::loadStickers(QVector<Sticker> *stickers)
         button->setIcon(QPixmap::fromImage(sticker.image()));
         button->setToolTip(sticker.name());
 
-        _buttons.append(button);
+        _buttons.insert(&sticker, button);
         _layout->addWidget(button);
+
+        button->setVisible(true);
+    }
+}
+
+void StickerGrid::hideStickers(QVector<Sticker> *stickersToHide)
+{
+    for (auto pair : _buttons.toStdMap())
+    {
+        pair.second->setVisible(stickersToHide->indexOf(*(pair.first)) < 0);
     }
 }
 
@@ -44,16 +54,19 @@ void StickerGrid::updateLayout(int contentAreaWidth)
     int row = 0;
     int col = 0;
 
-    for (QPushButton *button : _buttons)
+    for (QPushButton *button : _buttons.values())
     {
-        _layout->addWidget(button, row, col);
-
-        ++col;
-
-        if (col >= buttonsPerRow)
+        if (button->isVisible())
         {
-            ++row;
-            col = 0;
+            _layout->addWidget(button, row, col);
+
+            ++col;
+
+            if (col >= buttonsPerRow)
+            {
+                ++row;
+                col = 0;
+            }
         }
     }
 

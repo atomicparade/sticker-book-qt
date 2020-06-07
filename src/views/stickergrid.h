@@ -2,6 +2,7 @@
 #define STICKERGRID_H
 
 #include <QGridLayout>
+#include <QMap>
 #include <QPushButton>
 
 #include "models/sticker.h"
@@ -17,13 +18,13 @@ public:
     void setScrollbarWidth(int width);
     void setLayout(QGridLayout *layout);
     void loadStickers(QVector<Sticker> *stickers);
-
+    void hideStickers(QVector<Sticker> *stickersToHide);
     void updateLayout(int contentAreaWidth);
 
 private:
     int _scrollbarWidth;
     QGridLayout *_layout;
-    QVector<QPushButton *> _buttons;
+    QMap<Sticker *,QPushButton *> _buttons;
     QWidget _rightSpacer;
     QWidget _bottomSpacer;
 };

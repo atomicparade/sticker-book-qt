@@ -35,6 +35,8 @@ private slots:
     void on_actionOptions_triggered();
     void updateStickerGridLayout();
 
+    void on_leSearch_textChanged(const QString &searchText);
+
 private:
     void loadStickers();
     void loadSettings();
