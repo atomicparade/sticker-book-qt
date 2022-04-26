@@ -12,7 +12,7 @@ Note: This software uses Qt under the
 
 ## Usage
 
-1. Option the options (File -> Options).
+1. Open the options menu (File -> Options).
 2. Add one or more directories that contain images.
 3. Add or edit copy profiles as desired. Copy profiles are quick settings that
     images can be copied to the clipboard with.
